@@ -1,11 +1,11 @@
 
 module.exports = function (app) {
 
-  app.get('/login', function (req, res) {
+  app.get('/Signin', function (req, res) {
     res.send({ data: 'Logged in' });
   });
 
-  app.get('/signup', function (req, res) {
+  app.get('/Signup', function (req, res) {
     res.send({ data: 'Sinuped' });
   });
 
