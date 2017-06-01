@@ -33,8 +33,9 @@ const proPicStyle = {
 };
 
 const dropZoneStyle = {
-  width: 100,
-  height: 100,
+  width: 300,
+  height: 200,
+  paddingLeft: 20,
 };
 
 const styleMenu = {
@@ -312,14 +313,19 @@ class Account extends Component{
           </div>
 
           <div className="col-lg-5">
-            <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 500}}>
+            <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 780}}>
               <h3 style={{paddingTop: 30}}><center><b>Add Recipie</b></center></h3>
               <div style={{paddingLeft: 40}}>
                 <TextField style={{width: 350}} hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
                 <TextField style={{width: 350}}hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
                 <TextField style={{width: 350}}hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
-                <br/><br/>
-                <RaisedButton label="Add" primary={true} onTouchTap={this.add}/>
+                <br/><br/><br/>
+                <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
+                    <img style={dropZoneStyle} src={this.state.preview} />
+                    <div style={{paddingLeft: 20}}>Try dropping some files here, or click to select files to upload.</div>
+                </Dropzone>
+                <br/><br/><br/><br/>
+                <RaisedButton label="Add" primary={true} onTouchTap={this.add} style={{marginLeft:250}}/>
               </div>
             </Paper>
           </div>
