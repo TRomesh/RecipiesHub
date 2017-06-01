@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as imageconstants from '../constants/image';
 import * as constants from '../constants/user';
 
 function getUserData(data) {
@@ -43,6 +44,20 @@ function ErrorgetUserAllData(data) {
   };
 }
 
+export function uploadSuccess({ data }) {
+  return {
+    type: imageconstants.UPLOAD_PROPIC_SUCCESS,
+    data,
+  };
+}
+
+export function uploadFail(error) {
+  return {
+    type: imageconstants.UPLOAD_PROPIC_FAIL,
+    error,
+  };
+}
+
 export const GetUser=(user)=>{
   return (dispatch) => {
     return axios.get('http://localhost:3000/user',user,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
@@ -65,4 +80,16 @@ export const GetUsers=()=>{
               .then(data => dispatch(getAllUserData(data)))
               .catch(error => dispatch(ErrorgetUserAllData(error)));
         };
+}
+
+export const uploadProPic=({ file, name })=>{
+    let data = new FormData();
+    data.append('file', document);
+    data.append('filename', name);
+
+    return (dispatch) => {
+      return  axios.post('http://localhost:3000/file', data)
+                .then(response => dispatch(uploadSuccess(response)))
+                .catch(error => dispatch(uploadFail(error)))
+    }
 }

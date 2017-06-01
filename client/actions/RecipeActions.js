@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as constants from '../constants/recipe';
+import * as imageconstants from '../constants/image';
 
 function addRecipe(data) {
   return {
@@ -71,6 +72,20 @@ function ErrorshareRecipe(data) {
   };
 }
 
+export function uploadSuccess({ data }) {
+  return {
+    type: imageconstants.UPLOAD_RECPIC_SUCCESS,
+    data,
+  };
+}
+
+export function uploadFail(error) {
+  return {
+    type: imageconstants.UPLOAD_RECPIC_FAIL,
+    error,
+  };
+}
+
 export const AddNewRecipe=(recipe)=>{
   return (dispatch) => {
     return axios.post('http://localhost:3000/recipe',recipe,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
@@ -109,4 +124,16 @@ export const GetAllRecipesTypes=(type)=>{
               .then(data => dispatch(searchRecipe(data)))
               .catch(error => dispatch(ErrorsearchRecipe(error)));
         };
+}
+
+export const uploadRecPic=({ file, name })=>{
+    let data = new FormData();
+    data.append('file', document);
+    data.append('filename', name);
+
+    return (dispatch) => {
+      return  axios.post('http://localhost:3000/file', data)
+                .then(response => dispatch(uploadSuccess(response)))
+                .catch(error => dispatch(uploadFail(error)))
+    }
 }
