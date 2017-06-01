@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as AuthActions from '../../actions/AuthActions';
-import {blueGrey50,lightBlue500} from 'material-ui/styles/colors';
+import {blueGrey50,pink500,deepOrange400,grey50} from 'material-ui/styles/colors';
 
 const style = {
   height: 350,
@@ -23,7 +23,7 @@ const style = {
 };
 
 const style1 = {
-  color: lightBlue500
+  color: deepOrange400
 };
 
 const style2 = {
@@ -38,8 +38,6 @@ class Login extends Component{
           email: '',
           password: ''
         };
-
-
       }
 
     componentWillReceiveProps(nextProps){
@@ -62,14 +60,14 @@ class Login extends Component{
     //     this.props.history.push('/home')
     // }
     return(
-      <div style={{backgroundImage: "url(" + "https://addmeskype.files.wordpress.com/2015/09/d62cb-teenagers-offlinle-online.jpg" + ")",
+      <div style={{backgroundImage: "url(" + "https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" + ")",
                width:1301, height:654}}>
     <Paper style={style} zDepth={2}>
-      <h1 style={style1}><center>Sign In</center></h1>
+      <h1 style={style1}><center><b>Sign In</b></center></h1>
       <TextField hintText="Email" floatingLabelText="Email" onChange={e=>{this.setState({email:e.target.value})}}/>
       <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={p=>{this.setState({password:p.target.value})}}/>
       <br/><br/>
-      <RaisedButton label="Sign In" primary={true} style={style2} onTouchTap={this.singin}/>
+      <RaisedButton label="Sign In" primary={true} buttonStyle={{backgroundColor:deepOrange400}} style={style2} onTouchTap={this.singin}/>
     </Paper>
   </div>
     );

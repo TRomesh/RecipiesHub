@@ -4,6 +4,7 @@ import Signup from './signup/signup';
 import Account from './account/account';
 import Navigation from './navigation/navigation';
 import Newsfeeds from './newsfeed/newsfeed';
+import Test from './test';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import createBrowserHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -21,6 +22,7 @@ class App extends Component{
          <Switch>
            <Route exact path="/login" component={Login}/>
            <Route exact path="/signup" component={Signup}/>
+           <Route exact path="/test" component={Test}/>
             <Navigation>
              <Route exact path="/account" component={Account}/>
              <Route exact path="/home" component={Newsfeeds}/>

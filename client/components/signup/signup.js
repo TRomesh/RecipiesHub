@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as AuthActions from '../../actions/AuthActions';
-import {blueGrey50,lightBlue500} from 'material-ui/styles/colors';
+import {blueGrey50,lightBlue500,deepOrange400} from 'material-ui/styles/colors';
 
 const style = {
   height: 554,
@@ -22,7 +22,7 @@ const style = {
 };
 
 const style1 = {
-  color: lightBlue500
+  color: deepOrange400
 };
 
 const style2 = {
@@ -75,16 +75,16 @@ class Signup extends Component{
 
   render(){
     return(
-      <div style={{backgroundImage: "url(" + "https://www-static-blogs.operacdn.com/multi/wp-content/uploads/sites/2/2015/02/Girl_laptop.jpg" + ")" }}>
+      <div style={{backgroundImage: "url(" + "http://i.huffpost.com/gen/1309014/images/o-RED-MEAT-facebook.jpg" + ")" }}>
         <Paper style={style} zDepth={2}>
-          <h1 style={style1}><center>Sign Up</center></h1>
+          <h1 style={style1}><center><b>Sign Up</b></center></h1>
           <TextField hintText="First name" floatingLabelText="First name" onChange={e=>{this.setState({fname:e.target.value})}}/>
           <TextField hintText="Last name" floatingLabelText="Last name" onChange={e=>{this.setState({lname:e.target.value})}}/>
           <TextField hintText="Username" floatingLabelText="Username" onChange={e=>{this.setState({uname:e.target.value})}}/>
           <TextField hintText="Email" floatingLabelText="Email" onChange={e=>{this.setState({email:e.target.value})}}/>
           <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={e=>{this.setState({password:e.target.value})}}/>
           <br/><br/>
-          <RaisedButton label="Sign Up" primary={true} style={style2} onTouchTap={this.singup}/>
+          <RaisedButton label="Sign Up" primary={true} buttonStyle={{backgroundColor:deepOrange400}} style={style2} onTouchTap={this.singup}/>
         </Paper>
   </div>
     );
