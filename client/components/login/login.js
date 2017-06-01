@@ -27,7 +27,7 @@ const style1 = {
 };
 
 const style2 = {
-
+  margin: 12,
 };
 
 class Login extends Component{
@@ -38,8 +38,6 @@ class Login extends Component{
           email: '',
           password: ''
         };
-
-
       }
 
     componentWillReceiveProps(nextProps){
