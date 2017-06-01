@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as AuthActions from '../../actions/AuthActions';
-import {blueGrey50,pink500,deepOrange400,grey50} from 'material-ui/styles/colors';
+import {deepOrange50,pink500,deepOrange400,grey50} from 'material-ui/styles/colors';
 
 const style = {
   height: 350,
@@ -18,7 +18,7 @@ const style = {
   marginBottom: 50,
   textAlign: 'center',
   display: 'inline-block',
-  backgroundColor: blueGrey50,
+  backgroundColor: deepOrange50,
   paddingTop: 20,
 };
 

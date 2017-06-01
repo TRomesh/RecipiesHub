@@ -149,7 +149,6 @@ class Account extends Component{
       firstname: 'Madushika',
       lastname: 'Perera',
       count: 10,
-
       recName:'',
       recType:'',
       description:'',
