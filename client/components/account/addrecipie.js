@@ -39,12 +39,14 @@ class AddRecipie extends Component{
     return(
       <div>
         <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 500}}>
-          <h1><center><b>Add Recipie</b></center></h1>
-          <TextField hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
-          <TextField hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
-          <TextField hintText="Description" floatingLabelText="Description" onChange={e=>{this.setState({description:e.target.value})}}/>
-        <br/><br/>
-          <RaisedButton label="Add" primary={true} onTouchTap={this.add}/>
+          <h3 style={{paddingTop: 30}}><center><b>Add Recipie</b></center></h3>
+          <div style={{paddingLeft: 40}}>
+            <TextField style={{width: 350}} hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
+            <TextField style={{width: 350}}hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
+            <TextField style={{width: 350}}hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
+            <br/><br/>
+            <RaisedButton label="Add" primary={true} onTouchTap={this.add}/>
+          </div>
         </Paper>
   </div>
     );
