@@ -55,10 +55,10 @@ class Login extends Component{
     }
 
   render(){
-    // if(this.props.redireact){
-    //   console.log('redireact true!');
-    //     this.props.history.push('/home')
-    // }
+    if(this.props.redireact){
+      console.log('redireact true!');
+        this.props.history.push('/home')
+    }
     return(
       <div style={{backgroundImage: "url(" + "https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" + ")",
                width:1301, height:654}}>

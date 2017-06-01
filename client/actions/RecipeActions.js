@@ -128,11 +128,11 @@ export const GetAllRecipesTypes=(type)=>{
 
 export const uploadRecPic=({ file, name })=>{
     let data = new FormData();
-    data.append('file', document);
+    data.append('file', file);
     data.append('filename', name);
 
     return (dispatch) => {
-      return  axios.post('http://localhost:3000/file', data)
+      return  axios.post('http://localhost:3000/recfile', data,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
                 .then(response => dispatch(uploadSuccess(response)))
                 .catch(error => dispatch(uploadFail(error)))
     }

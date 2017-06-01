@@ -58,9 +58,9 @@ export function uploadFail(error) {
   };
 }
 
-export const GetUser=(user)=>{
+export const GetUser=(username)=>{
   return (dispatch) => {
-    return axios.get('http://localhost:3000/user',user,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+    return axios.get('http://localhost:3000/user',{ params:username, headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(getUserData(data)))
               .catch(error => dispatch(ErrorgetUserData(error)));
         };
@@ -68,7 +68,7 @@ export const GetUser=(user)=>{
 
 export const UpdateUser=(user)=>{
   return (dispatch) => {
-    return axios.put('http://localhost:3000/user',user,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+    return axios.put('http://localhost:3000/user',{ params:user,headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(updateUserData(data)))
               .catch(error => dispatch(ErrorupdateUserData(error)));
         };
@@ -88,7 +88,7 @@ export const uploadProPic=({ file, name })=>{
     data.append('filename', name);
 
     return (dispatch) => {
-      return  axios.post('http://localhost:3000/file', data)
+      return  axios.post('http://localhost:3000/file', data,{ headers: { Authorization:localStorage.getItem('jwtToken')} })
                 .then(response => dispatch(uploadSuccess(response)))
                 .catch(error => dispatch(uploadFail(error)))
     }

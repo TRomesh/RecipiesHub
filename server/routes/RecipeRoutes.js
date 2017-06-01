@@ -2,6 +2,7 @@ const Authentication = require('../auth/auth');
 const passportService = require('../auth/passport');
 const passport = require('passport');
 const multer = require('multer');
+const fs = require('fs');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
@@ -9,10 +10,11 @@ const requireSignin = passport.authenticate('local', { session: false });
 const Recipes = require('../models/recipies');
 
 const storage = multer.diskStorage({
-  destination: '../media',
+  destination: __dirname +'/media/',
   filename(req, file, cb) {
+    console.log(file);
     cb(null, `${new Date()}-${file.originalname}`);
-  },
+  }
 });
 
 const upload = multer({ storage });
@@ -62,8 +64,8 @@ module.exports = function (app) {
       });
   });
 
-  app.post('/file',upload.single('file'), function(req, res) {
-      var file = __dirname + '/' + req.file.filename;
+  app.post('/recfile',[requireAuth,upload.single('file')], function(req, res) {
+      let file = __dirname + '/media/' + req.file.filename;
         fs.rename(req.file.path, file, function(err) {
           if (err) {
             console.log(err);
