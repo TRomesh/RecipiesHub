@@ -76,7 +76,7 @@ class AddRecipie extends Component{
 AddRecipie.PropTypes = {
   isError: PropTypes.bool.isRequired,
   redireact: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  useractions: PropTypes.object.isRequired
 }
 
 let mapStateToProps = (state,props) => {
@@ -88,7 +88,7 @@ let mapStateToProps = (state,props) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    actions:bindActionCreators(AuthActions,dispatch)
+    useractions:bindActionCreators(UserActions,dispatch)
   };
 }
 
