@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 const User = require('../models/user');
 
-let tokenForUser = (user) =>{
+function tokenForUser(user){
     const timpestamp = new Date().getTime();
     return jwt.encode({sub:user.id,iat:timpestamp,usr:user.uname},'asasasas');
 }
@@ -11,6 +11,7 @@ let tokenForUser = (user) =>{
 exports.signin = function (req, res, next) {
   // User had already had their email and pass auth'd
   //  We just need to give them a token
+  console.log(req.user);
   res.send({ token: tokenForUser(req.user) });
 }
 

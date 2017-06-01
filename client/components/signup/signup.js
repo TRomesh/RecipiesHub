@@ -44,6 +44,14 @@ class Signup extends Component{
          }
     }
 
+
+    componentWillReceiveProps(nextProps){
+      if(this.props.redireact.redireact){
+        console.log('redireact true!');
+          this.props.history.push('/login')
+      }
+    }
+
     validateEmail = (event) => {
       // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -62,7 +70,7 @@ class Signup extends Component{
         email:this.state.email,
         password:this.state.password
       });
-      this.setState({fname:'',lname:'',uname:'',email:'',password:''});
+      // this.setState({fname:'',lname:'',uname:'',email:'',password:''});
     }
 
   render(){

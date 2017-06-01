@@ -3,14 +3,38 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import * as RecipeActions from '../../actions/RecipeActions';
 import * as UserActions from '../../actions/UserActions';
-
 
 class Account extends Component{
 
+  constructor(props){
+      super(props);
+      this.state={
+        fname:'',
+        type:'',
+        description:''
+      }
+  }
+
+  add=()=>{
+      this.props.Recipeactions.AddNewRecipe(this.state);
+      this.props.Useractions.GetUsers();
+  }
+
   render(){
     return(
-      <h1>Account</h1>
+      <div>
+        <TextField id="fname" onChange={e=>{this.setState({fname:e.target.value})}}/>
+        <br/>
+        <TextField id="type" onChange={e=>{this.setState({type:e.target.value})}}/>
+          <br/>
+        <TextField id="desc" onChange={e=>{this.setState({description:e.target.value})}}/>
+          <br/>
+        <RaisedButton label="add" primary={true} onTouchTap={this.add}/>
+      </div>
     );
   }
 
@@ -19,19 +43,21 @@ class Account extends Component{
 Account.PropTypes = {
   isError: PropTypes.bool.isRequired,
   redireact: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  Recipeactions: PropTypes.object.isRequired,
+  Useractions:PropTypes.object.isRequired
 }
 
 let mapStateToProps = (state,props) => {
   return {
-    isError: state.user,
-    redireact: state.user
+    isError: state.recipe.isError,
+    redireact: state.recipe.redireact
   }
 }
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    actions:bindActionCreators(UserActions,dispatch)
+    Recipeactions:bindActionCreators(RecipeActions,dispatch),
+    Useractions:bindActionCreators(UserActions,dispatch)
   };
 }
 

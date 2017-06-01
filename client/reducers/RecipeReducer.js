@@ -4,7 +4,7 @@ const initialState = {
 
 };
 
-export default function User(state = initialState, action) {
+export default function Recipe(state = initialState, action) {
   switch (action.type) {
     case constants.ADD_RECIPE:
       return Object.assign({},state,{});

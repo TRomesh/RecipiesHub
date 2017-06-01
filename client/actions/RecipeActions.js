@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as constants from '../constants/recipe';
 
 function addRecipe(data) {
@@ -42,6 +43,20 @@ function ErrordeleteRecipe(data) {
   };
 }
 
+function searchRecipe(data) {
+  return {
+      type: constants.SEARCH_RECIPE,
+      data
+  };
+}
+
+function ErrorsearchRecipe(data) {
+  return {
+      type: constants.ERROR_SEARCH_RECIPE,
+      data
+  };
+}
+
 function shareRecipe(data) {
   return {
       type: constants.SHARE_RECIPE,
@@ -54,4 +69,44 @@ function ErrorshareRecipe(data) {
       type: constants.ERROR_SHARE_RECIPE,
       data
   };
+}
+
+export const AddNewRecipe=(recipe)=>{
+  return (dispatch) => {
+    return axios.post('http://localhost:3000/recipe',recipe,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(addRecipe(data)))
+              .catch(error => dispatch(ErroraddRecipe(error)));
+        };
+}
+
+export const UpdateRecipe=(recipe)=>{
+  return (dispatch) => {
+    return axios.put('http://localhost:3000/recipe',recipe,{ headers: { Authorization: "Bearer " + localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(updateRecipe(data)))
+              .catch(error => dispatch(ErrorupdateRecipe(error)));
+        };
+}
+
+export const RemoveRecipe=(recipe)=>{
+  return (dispatch) => {
+    return axios.delete('http://localhost:3000/recipe',recipe,{ headers: { Authorization: "Bearer " + localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(deleteRecipe(data)))
+              .catch(error => dispatch(ErrordeleteRecipe(error)));
+        };
+}
+
+export const GetRecipe=(recipe)=>{
+  return (dispatch) => {
+    return axios.get('http://localhost:3000/recipe',recipe,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(searchRecipe(data)))
+              .catch(error => dispatch(ErrorsearchRecipe(error)));
+        };
+}
+
+export const GetAllRecipesTypes=(type)=>{
+  return (dispatch) => {
+    return axios.get('http://localhost:3000/recipes',type,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(searchRecipe(data)))
+              .catch(error => dispatch(ErrorsearchRecipe(error)));
+        };
 }

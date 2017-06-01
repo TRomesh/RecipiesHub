@@ -1,3 +1,10 @@
+const Authentication = require('../auth/auth');
+const passportService = require('../auth/passport');
+const passport = require('passport');
+
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
+
 const Recipes = require('../models/recipies');
 
 module.exports = function (app) {
@@ -16,7 +23,7 @@ module.exports = function (app) {
       });
   });
 
-  app.post('/recipe', function (req, res) {
+  app.post('/recipe',requireAuth, function (req, res) {
       const recipe = new Recipes({
         creator:req.body.creator,
         fname:req.body.fname,
@@ -45,5 +52,5 @@ module.exports = function (app) {
       });
   });
 
-  
+
 }

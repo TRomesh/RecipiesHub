@@ -43,9 +43,9 @@ class Login extends Component{
       }
 
     componentWillReceiveProps(nextProps){
-      if(this.props.redireact.redireact){
+      if(this.props.redireact){
         console.log('redireact true!');
-          this.props.history.push('/chat')
+          this.props.history.push('/home')
       }
     }
 
@@ -57,6 +57,10 @@ class Login extends Component{
     }
 
   render(){
+    // if(this.props.redireact){
+    //   console.log('redireact true!');
+    //     this.props.history.push('/home')
+    // }
     return(
       <div style={{backgroundImage: "url(" + "https://addmeskype.files.wordpress.com/2015/09/d62cb-teenagers-offlinle-online.jpg" + ")",
                width:1301, height:654}}>
@@ -81,8 +85,8 @@ Login.PropTypes = {
 
 let mapStateToProps = (state,props) => {
   return {
-    isError: state.user,
-    redireact: state.user
+    isError: state.user.isError,
+    redireact: state.user.redireact
   }
 }
 

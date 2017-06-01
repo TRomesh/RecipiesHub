@@ -5,7 +5,7 @@ const Recipe = new Schema({
   creator:String,
   fname:String,
   type:String,
-  image:String,
+  image:{ type: String, default: 'none' },
   description:String,
   created:{ type: Date, default: Date.now }
 });

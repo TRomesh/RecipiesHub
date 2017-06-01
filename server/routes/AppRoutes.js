@@ -11,8 +11,7 @@ module.exports = function (app) {
     res.send({ hi: 'there' });
   });
 
-  app.get('/signin', requireSignin, Authentication.signin);
+  app.post('/signin', requireSignin, Authentication.signin);
 
-  app.get('/register', Authentication.signup);
-
+  app.post('/signup', Authentication.signup);
 }

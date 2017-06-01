@@ -19,7 +19,7 @@ class App extends Component{
       <MuiThemeProvider>
        <Router history={history}>
          <Switch>
-           <Route exact path="/Login" component={Login}/>
+           <Route exact path="/login" component={Login}/>
            <Route exact path="/signup" component={Signup}/>
             <Navigation>
              <Route exact path="/account" component={Account}/>
