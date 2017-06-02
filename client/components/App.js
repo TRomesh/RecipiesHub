@@ -32,6 +32,7 @@ class App extends Component{
              <Route exact path="/account" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Account />))}/>
              <Route exact path="/home" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Newsfeeds />))}/>
            </Navigation>
+           <Route component={<h1>404 Page Not Found!</h1>}/>
          </Switch>
        </Router>
      </MuiThemeProvider>
