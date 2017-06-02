@@ -153,6 +153,7 @@ class Account extends Component{
       recType:'',
       description:'',
     };
+    this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
   }
 
   componentDidMount = () => {
@@ -173,10 +174,11 @@ class Account extends Component{
   }
 
   onDrop = (files) => {
-      console.log(files);
-      this.setState({
-          files: files,
-          preview: files[0].preview
+      const file = files[0];
+      console.log(file);
+      this.props.Recipeactions.uploadRecPic({
+        file,
+        name:this.state.recName
       });
   }
 
@@ -239,7 +241,7 @@ class Account extends Component{
       );
   }
 
-  MyFriends=()=>{
+  MyRecipies=()=>{
      return tilesData.map((user,index)=>{
       return  <GridTile
                   key={index}
@@ -248,6 +250,14 @@ class Account extends Component{
                 <img src={user.img} />
               </GridTile>
    });
+  }
+
+  addrecipie=()=>{
+    this.props.Recipeactions.AddNewRecipe({
+      fname:this.state.recName,
+      type:this.state.recType,
+      desc:this.state.description
+    });
   }
 
   render(){
@@ -279,7 +289,7 @@ class Account extends Component{
               </div>
 
               <div className="col-md-6" style={styleTexts}>
-                  <h4><b>{this.state.firstname + ' ' + this.state.lastname} </b></h4>
+                  <h4><b>{this.props.user.fname + ' ' + this.props.user.lname} </b></h4>
                   <h5>{this.state.count} Posts</h5>
               </div>
 
@@ -304,7 +314,7 @@ class Account extends Component{
                   cols={4}
                 >
                   {
-                    this.MyFriends()
+                    this.MyRecipies()
                   }
                 </GridList>
               </div>
@@ -324,7 +334,7 @@ class Account extends Component{
                     <div style={{paddingLeft: 20}}>Try dropping some files here, or click to select files to upload.</div>
                 </Dropzone>
                 <br/><br/><br/><br/>
-                <RaisedButton label="Add" primary={true} onTouchTap={this.add} style={{marginLeft:250}}/>
+                <RaisedButton label="Add" primary={true} onTouchTap={this.addrecipie} style={{marginLeft:250}}/>
               </div>
             </Paper>
           </div>
@@ -345,7 +355,8 @@ Account.PropTypes = {
 let mapStateToProps = (state,props) => {
   return {
     isError: state.recipe.isError,
-    redireact: state.recipe.redireact
+    redireact: state.recipe.redireact,
+    user: state.user
   }
 }
 

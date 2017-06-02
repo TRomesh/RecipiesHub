@@ -3,7 +3,9 @@ import * as constants from '../constants/user';
 const initialState = {
   isError:false,
   redireact:false,
-  error:''
+  error:'',
+  fname:'',
+  lname:'',
 };
 
 export default function User(state = initialState, action) {
@@ -22,10 +24,12 @@ export default function User(state = initialState, action) {
       return Object.assign({},state,{isError:true,redireact:false});
 
     case constants.GET_USER_DETAILS:
-      return Object.assign({},state,{user:action.data.data});
+    console.log(action.data.data);
+      return Object.assign({},state,{fname:action.data.data.fname,lname:action.data.data.lname});
+
 
     case constants.ERROR_GET_USER_DETAILS:
-      return Object.assign({},state,{});
+      return Object.assign({},state,{usererror:true});
 
     case constants.GET_USERS:
       console.log('all users',action.data.data);

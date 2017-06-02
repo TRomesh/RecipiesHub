@@ -8,8 +8,8 @@ const User = require('../models/user');
 
 module.exports = function (app) {
 
-  app.get('/user', function (req, res) {
-    User.findOne({fname:req.query.fname},(err,user)=>{
+  app.get('/user',requireAuth, function (req, res) {
+    User.findOne({uname:req.query.uname},(err,user)=>{
          if (err) { return next(err); }
          res.json(user);
        });
