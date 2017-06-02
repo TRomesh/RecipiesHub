@@ -13,6 +13,11 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 const history = createBrowserHistory({});
 injectTapEventPlugin();
 
+let hasToken = () => {
+  const token = localStorage.getItem('jwtToken');
+  return (token == undefined);
+}
+
 class App extends Component{
 
   render(){
@@ -24,8 +29,8 @@ class App extends Component{
            <Route exact path="/signup" component={Signup}/>
            <Route exact path="/test" component={Test}/>
             <Navigation>
-             <Route exact path="/account" component={Account}/>
-             <Route exact path="/home" component={Newsfeeds}/>
+             <Route exact path="/account" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Account />))}/>
+             <Route exact path="/home" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Newsfeeds />))}/>
            </Navigation>
          </Switch>
        </Router>
