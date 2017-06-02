@@ -33,6 +33,7 @@ class Navigation extends Component{
        }
   }
 
+
   render(){
      return(
        <div>
@@ -62,7 +63,7 @@ class Navigation extends Component{
                targetOrigin={{horizontal: 'right', vertical: 'top'}}
                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
              >
-               <Link to="/login"><MenuItem primaryText="Logout" onTouchTap={this.logout}/></Link>
+               <Link to="/login"><MenuItem primaryText="Logout" onTouchTap={e=>{localStorage.clear();}}/></Link>
              </IconMenu>
           </div>
           }
