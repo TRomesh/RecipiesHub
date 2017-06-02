@@ -63,8 +63,6 @@ class Navigation extends Component{
                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
              >
                <Link to="/login"><MenuItem primaryText="Logout" onTouchTap={this.logout}/></Link>
-               <Link to=""><MenuItem primaryText="Settings" onTouchTap={this.setting}/></Link>
-               <Link to=""><MenuItem primaryText="Help" onTouchTap={this.help}/></Link>
              </IconMenu>
           </div>
           }

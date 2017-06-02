@@ -1,8 +1,8 @@
 import * as constants from '../constants/recipe';
 
 const initialState = {
-    allrecipe:[{}],
-    myrecipe:[{}],
+    allrecipe:[],
+    myrecipe:[],
     isError:false,
     redireact:false
 };

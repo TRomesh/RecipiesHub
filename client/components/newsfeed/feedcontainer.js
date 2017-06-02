@@ -40,7 +40,7 @@ class FeedContainer extends Component{
     console.log(this.props.recipies);
     return(
       <div>
-          {this._renderItem()}
+          {(this.props.recipies)? this._renderItem():<div></div>}
       </div>
     );
   }
