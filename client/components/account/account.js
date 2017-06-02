@@ -11,6 +11,8 @@ import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import FavIcon from 'material-ui/svg-icons/action/favorite';
+import FavIconBorder from 'material-ui/svg-icons/action/favorite-border';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -211,7 +213,7 @@ class Account extends Component{
       return (<GridTile
                   key={index}
                   title={<a onClick={this.handleOpenRecipie}>{user.title}</a>}
-                  actionIcon={<IconButton><StarBorder color="white" /></IconButton>}>
+                  actionIcon={<IconButton><FavIconBorder color="white" /></IconButton>}>
                 <img src={user.img} />
               </GridTile>)
    });
