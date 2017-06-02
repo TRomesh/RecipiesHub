@@ -14,7 +14,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 import AddRecipie from './addrecipie';
 import {blueGrey50,lightBlue500,deepOrange400} from 'material-ui/styles/colors';
 

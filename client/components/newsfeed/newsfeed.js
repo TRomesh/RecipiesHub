@@ -18,6 +18,8 @@ import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import Dropzone from 'react-dropzone';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const Cardstyle = {
   height: 450,
@@ -26,6 +28,11 @@ const Cardstyle = {
   //marginLeft: 20,
 };
 
+const dropZoneStyle = {
+  width: 300,
+  height: 200,
+  paddingLeft: 20,
+};
 
 class Newsfeeds extends Component{
 
@@ -103,13 +110,6 @@ class Newsfeeds extends Component{
         onTouchTap={this.handleClose}/>,
     ];
 
-    const showRecipieActions = [
-      <FlatButton
-        label="Ok"
-        secondary={true}
-        onTouchTap={this.handleClose}/>,
-    ];
-
     return(
       <div className="column">
         <div className="col-lg-3">
@@ -164,8 +164,21 @@ class Newsfeeds extends Component{
           actions={updateActions}
           modal={false}
           open={this.state.editOpen}
-          onRequestClose={this.handleClose}>
-          <TextField hintText="Update your status" multiLine={false} fullWidth={true} ref="EditBox" defaultValue={this.props.postText}/>
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+          contentStyle={{width:500}}
+        >
+            <div>
+              <TextField hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
+              <TextField hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
+              <TextField hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
+              <br/><br/><br/>
+              <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
+                  <img style={dropZoneStyle} src={this.state.preview} />
+                  <div style={{paddingLeft: 20}}>Try dropping some files here, or click to select files to upload.</div>
+              </Dropzone>
+              <br/><br/>
+            </div>
         </Dialog>
 
         <Dialog
@@ -179,11 +192,31 @@ class Newsfeeds extends Component{
 
         <Dialog
           title="Spunch cake"
-          actions={showRecipieActions}
           modal={false}
           open={this.state.recipieOpen}
-          onRequestClose={this.handleClose}>
-            ssssssssssssssssssssssssssssssssssssss
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}>
+            <Card>
+              <CardMedia>
+                <img style={{height:400}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
+              </CardMedia>
+              <CardText>
+                Ingredients (Serves: 8)
+                  225g (8 oz) self-raising flour
+                  225g (8 oz) butter, at room temperature
+                  225g (8 oz) caster sugar
+                  4 eggs
+                  1 teaspoon baking powder
+
+                Method
+                  Preheat the oven to 180 degrees C / gas mark 4.
+                  Measure all the ingredients into a large bowl.
+                  Mix all of the ingredients using a electric whisk.
+                  Pour the mixture into 2 non-stick 7 inch (18cm) tins.
+                  Place them in the oven till golden brown 15-25 minutes.
+                  Cool on a wire rack before serving.
+              </CardText>
+            </Card>
         </Dialog>
       </div>
     );
