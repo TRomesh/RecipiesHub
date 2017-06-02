@@ -25,8 +25,7 @@ export default function User(state = initialState, action) {
 
     case constants.GET_USER_DETAILS:
     console.log(action.data.data);
-      return Object.assign({},state,{fname:action.data.data.fname,lname:action.data.data.lname});
-
+      return Object.assign({},state,{fname:action.data.data.fname,lname:action.data.data.lname,email:action.data.data.email});
 
     case constants.ERROR_GET_USER_DETAILS:
       return Object.assign({},state,{usererror:true});

@@ -21,6 +21,7 @@ import TextField from 'material-ui/TextField';
 import Dropzone from 'react-dropzone';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
 const Cardstyle = {
   height: 450,
   width: 300,
@@ -46,22 +47,20 @@ class Newsfeeds extends Component{
   }
 
   _editStatus = () => {
-    // let status = this.refs.EditBox.getValue();
-    // let editData = {
-    //   userId: localStorage.getItem('userid'),
-    //   postId: this.props.id,
-    //   status: status,
-    // };
-    // ActivityfeedAction._editStatus(editData);
+    this.props.recipactions.UpdateRecipe({
+      id:localStorage.getItem('selrec'),
+      fname:this.state.recName,
+      type:this.state.recType,
+      description:this.state.description
+    });
     this.handleClose();
   }
 
   _deleteStatus = () => {
-    // let deleteData = {
-    //   userId: localStorage.getItem('userid'),
-    //   postId: this.props.id,
-    // };
-    // ActivityfeedAction._deleteStatus(deleteData);
+      this.props.recipactions.RemoveRecipe({
+        id:localStorage.getItem('selrec')
+      });
+      this.handleClose();
     }
 
   handleOpen = () => {
@@ -124,7 +123,7 @@ class Newsfeeds extends Component{
               }
               secondaryTextLines={1}
               rightIconButton={
-                  <IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                  <IconMenu onTouchTap={e=>{localStorage.setItem('selrec',this.props.id);}} iconButtonElement={<IconButton><MoreVertIcon/></IconButton>}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                             targetOrigin={{horizontal: 'right', vertical: 'top'}}>
                     <MenuItem primaryText="Edit" onClick={this.handleOpen}/>
@@ -156,9 +155,10 @@ class Newsfeeds extends Component{
           contentStyle={{width:500}}
         >
             <div>
-              <TextField hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
-              <TextField hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
-              <TextField hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
+              {this.props.id}
+              <TextField hintText={this.props.name} floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
+              <TextField hintText={this.props.type} floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
+              <TextField hintText={this.props.description} floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
               <br/><br/><br/>
               <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
                   <img style={dropZoneStyle} src={this.state.preview} />
@@ -201,7 +201,7 @@ class Newsfeeds extends Component{
 Newsfeeds.PropTypes = {
   isError: PropTypes.bool.isRequired,
   redireact: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  recipactions: PropTypes.object.isRequired
 }
 
 let mapStateToProps = (state,props) => {
@@ -213,7 +213,7 @@ let mapStateToProps = (state,props) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    actions:bindActionCreators(RecipeActions,dispatch)
+    recipactions:bindActionCreators(RecipeActions,dispatch)
   };
 }
 
