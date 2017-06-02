@@ -8,6 +8,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
 const Recipes = require('../models/recipies');
+const User = require('../models/user');
 
 const storage = multer.diskStorage({
   destination: __dirname +'/media/',
@@ -36,21 +37,27 @@ module.exports = function (app) {
   });
 
   app.post('/recipe',requireAuth, function (req, res) {
-      const recipe = new Recipes({
-        creator:req.body.creator,
-        fname:req.body.fname,
-        type:req.body.type,
-        image:req.body.image,
-        description:req.body.description,
+
+      User.findOne({uname:req.body.creator},(err,user)=>{
+          if (err) { return next(err); }
+          const recipe = new Recipes({
+            cname:user.fname,
+            creator:req.body.creator,
+            fname:req.body.fname,
+            type:req.body.type,
+            image:req.body.image,
+            description:req.body.desc,
+          });
+            recipe.save((err,rec)=>{
+            if (err) { return next(err); }
+            res.json(rec);
       });
-        recipe.save((err,rec)=>{
-        if (err) { return next(err); }
-          res.json(rec);
+
     });
   });
 
   app.put('/recipe', function (req, res) {
-      User.findOne({fname:req.query.fname},(err,rec)=>{
+      Recipes.findOne({fname:req.query.fname},(err,rec)=>{
         if (err) { return next(err); }
         rec.fname=req.query.fname;
         rec.type=req.query.type;

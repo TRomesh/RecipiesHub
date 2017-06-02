@@ -28,7 +28,7 @@ class FeedContainer extends Component{
                             name={rec.fname}
                             type={rec.type}
                             description={rec.description}
-                            user_name={rec.creator}
+                            user_name={rec.cname}
                             attachment='http://ptownpizza.com/images/Food/Pizza/Pizza01.jpg'
                             created_at={rec.created}
                             lkedpost='true'/>);

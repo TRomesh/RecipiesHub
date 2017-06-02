@@ -39,7 +39,7 @@ export default function User(state = initialState, action) {
       return Object.assign({},state,{});
 
     case constants.UPDATE_USER_DETAILS:
-      return Object.assign({},state,{});
+      return Object.assign({},state,{fname:action.data.data.fname,lname:action.data.data.lname});
 
     case constants.ERROR_UPDATE_USER_DETAILS:
       return Object.assign({},state,{});
