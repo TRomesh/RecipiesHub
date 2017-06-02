@@ -11,12 +11,18 @@ import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import FavIcon from 'material-ui/svg-icons/action/favorite';
+import FavIconBorder from 'material-ui/svg-icons/action/favorite-border';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
 import AddRecipie from './addrecipie';
 import {blueGrey50,lightBlue500,deepOrange400} from 'material-ui/styles/colors';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Checkbox from 'material-ui/Checkbox';
 
 const stylePaper = {
   height: 160,
@@ -29,13 +35,18 @@ const proPicStyle = {
   width: 100,
   height: 100,
   marginTop: 30,
-  marginLeft: 5,
+  marginLeft: 15,
 };
 
 const dropZoneStyle = {
   width: 300,
   height: 200,
   paddingLeft: 20,
+};
+
+const profileDropZoneStyle = {
+  width: 200,
+  height: 200,
 };
 
 const styleMenu = {
@@ -69,39 +80,16 @@ const styles = {
   },
 };
 
+const checkboxstyles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+};
+
 const tilesData = [
-  {
-    img: 'http://static5.businessinsider.com/image/56450d312491f9b9008b4bd4/50-meals-everyone-should-eat-in-their-lifetime.jpg',
-    title: 'Special fried rice with prawns',
-  },
-  {
-    img: 'http://www.leanphysiquemeals.co.uk/wp-content/uploads/2015/02/bigstock-Pasta-Meal-1095251.jpg',
-    title: 'Vegi pasta',
-  },
-  {
-    img: 'http://www.travelistanbulhotels.com/media/dXSbL-inside-crucial-aspects-for-appetizers.png',
-    title: 'Vegitable salad with crispy fried fish',
-  },
-  {
-    img: 'http://cdn2.tmbi.com/TOH/Images/Photos/37/1200x1200/Strawberries---Cream-Torte_exps167223_TH2847295D02_21_4bC_RMS.jpg',
-    title: 'Strawberry cake with fresh cream',
-  },
-  {
-    img: 'http://www.sugaretal.com/wp-content/uploads/2013/06/IMG_0767-1.jpg?x87046',
-    title: 'Chocolate mousse',
-  },
-  {
-    img: 'http://cdn2.tmbi.com/TOH/Images/Photos/37/1200x1200/exps143154_THCA153054A09_11_2b.jpg',
-    title: 'Special chocolate dessert with strawberry',
-  },
-  {
-    img: 'https://i.ytimg.com/vi/-H7PPTc9J90/maxresdefault.jpg',
-    title: 'Italian spaghetti',
-  },
-  {
-    img: 'http://files.hungryforever.com/wp-content/uploads/2015/09/23213411/pizza.jpg',
-    title: 'Pizza with chicken and baby mushroom',
-  },
   {
     img: 'http://static5.businessinsider.com/image/56450d312491f9b9008b4bd4/50-meals-everyone-should-eat-in-their-lifetime.jpg',
     title: 'Special fried rice with prawns',
@@ -152,6 +140,11 @@ class Account extends Component{
       recName:'',
       recType:'',
       description:'',
+      editOpen: false,
+      recipieOpen: false,
+      deleteOpen: false,
+      profilepreview: '',
+      profilefiles: {},
     };
     this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
   }
@@ -176,9 +169,22 @@ class Account extends Component{
   onDrop = (files) => {
       const file = files[0];
       console.log(file);
+      this.setState({
+          files: file,
+          preview: files[0].preview
+      });
       this.props.Recipeactions.uploadRecPic({
         file,
         name:this.state.recName
+      });
+  }
+
+  onDropProfile = (profilefiles) => {
+      const file = profilefiles[0];
+      console.log(file);
+      this.setState({
+          profilefiles: file,
+          profilepreview: file.preview
       });
   }
 
@@ -202,53 +208,14 @@ class Account extends Component{
     });
   }
 
-  // _saveImage = () => {
-  //     var fd = new FormData();
-  //     var self = this;
-  //     fd.append('apitoken', localStorage.getItem('apitoken'));
-  //     fd.append('file', this.state.files[0]);
-  //     fd.append('email', localStorage.getItem('email'));
-  //     fd.append('user', localStorage.getItem('username'));
-  //     $.ajax({
-  //         type: 'POST',
-  //         url: '/user/profilepic?token=' + localStorage.getItem('apitoken'),
-  //         data: fd,
-  //         contentType: false,
-  //         processData: false,
-  //         success: function (data) {
-  //             console.log("success");
-  //             console.log(data);
-  //             if(data.done == true) {
-  //               UserActions.fetchProfilePicture(localStorage.getItem('apitoken'), localStorage.getItem('username'));
-  //               location.reload();
-  //             } else {
-  //
-  //             }
-  //         },
-  //         error: function (data) {
-  //             console.log("error");
-  //             console.log(data);
-  //         }
-  //     });
-  // }
-
-  renderSave = () => {
-      return (
-          this.state.preview ? <div>
-              <RaisedButton onClick={this._saveImage} label="Save" primary={true} style={{width: 100,height: 20,marginTop: 40}}/>
-              <RaisedButton label="Cancel" onClick={this._cancelEdit} style={buttonStyle} />
-          </div> : ''
-      );
-  }
-
   MyRecipies=()=>{
      return tilesData.map((user,index)=>{
-      return  <GridTile
+      return (<GridTile
                   key={index}
-                  title={<a>{user.title}</a>}
-                  actionIcon={<IconButton><StarBorder color="white" /></IconButton>}>
+                  title={<a onClick={this.handleOpenRecipie}>{user.title}</a>}
+                  actionIcon={<IconButton><FavIconBorder color="white" /></IconButton>}>
                 <img src={user.img} />
-              </GridTile>
+              </GridTile>)
    });
   }
 
@@ -260,32 +227,84 @@ class Account extends Component{
     });
   }
 
+  _editProfile = () => {
+    // let status = this.refs.EditBox.getValue();
+    // let editData = {
+    //   userId: localStorage.getItem('userid'),
+    //   postId: this.props.id,
+    //   status: status,
+    // };
+    // ActivityfeedAction._editStatus(editData);
+    this.handleClose();
+  }
+
+  _deleteProfile = () => {
+    // let deleteData = {
+    //   userId: localStorage.getItem('userid'),
+    //   postId: this.props.id,
+    // };
+    // ActivityfeedAction._deleteStatus(deleteData);
+    }
+
+  handleOpen = () => {
+    this.setState({editOpen: true});
+  }
+
+  handleOpenRecipie = () => {
+    this.setState({recipieOpen: true});
+  }
+
+  handleOpenDelete = () => {
+    this.setState({deleteOpen: true});
+  }
+
+  handleClose = () => {
+     this.setState({editOpen: false});
+     this.setState({recipieOpen: false});
+     this.setState({deleteOpen: false});
+   }
+
   render(){
+
+    const updateActions = [
+      <FlatButton
+        label="Update"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this._editProfile}/>,
+
+      <FlatButton
+        label="Close"
+        secondary={true}
+        onTouchTap={this.handleClose}/>,
+    ];
+
+    const confirmDeleteActions = [
+      <FlatButton
+        label="Delete"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this._deleteProfile}/>,
+
+      <FlatButton
+        label="Cansel"
+        secondary={true}
+        onTouchTap={this.handleClose}/>,
+    ];
+
     return(
       <div>
         <div className="column">
           <div className="col-lg-7">
             <Paper zDepth={1} className="column" style={stylePaper}>
               <div className="col-md-2">
-                {
-                  this.state.editingPic ? <div className="col-sm-1 col-md-1 col-lg-1">
-                      <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
-                          <div>Try dropping some files here, or click to select files to upload.</div>
-                          <img style={dropZoneStyle} src={this.state.preview} />
-                      </Dropzone>
-                  {this.renderSave()}
-
-                  </div> : <div className="col-sm-1 col-md-1 col-lg-1">
-                              <GridList
-                                cellHeight={200}
-                              >
-                                <GridTile style={proPicStyle}>
-                                  <img src={'http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg'} />
-                                </GridTile>
-                              </GridList>
-
-                           </div>
-                 }
+                <div>
+                    <GridList cellHeight={200} >
+                      <GridTile style={proPicStyle}>
+                          <img src={'http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg'} />
+                      </GridTile>
+                    </GridList>
+                </div>
               </div>
 
               <div className="col-md-6" style={styleTexts}>
@@ -300,11 +319,59 @@ class Account extends Component{
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
                   style={styleMenu}
                   >
-                  <MenuItem primaryText="Change profile picture" onTouchTap={this._editProfilePic} />
-                  <MenuItem primaryText="Edit profile" onTouchTap={this._editProfile} />
+                  <MenuItem primaryText="Edit profile" onTouchTap={this.handleOpen} />
+                  <MenuItem primaryText="Delete profile" onTouchTap={this.handleOpenDelete} />
                 </IconMenu>
               </div>
             </Paper>
+
+            <Dialog
+              title="Modify Profile"
+              actions={updateActions}
+              modal={false}
+              open={this.state.editOpen}
+              onRequestClose={this.handleClose}
+              autoScrollBodyContent={true}
+              contentStyle={{width:550}}
+            >
+                <div style={{paddingLeft: 60}}>
+                  <TextField style={{width: 350}} hintText="First name" floatingLabelText="First name" onChange={e=>{this.setState({recfname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText="Last name" floatingLabelText="Last name" onChange={e=>{this.setState({reclname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText="Username" floatingLabelText="Username" onChange={e=>{this.setState({recuname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText="Email" floatingLabelText="Email" onChange={e=>{this.setState({recemail:e.target.value})}}/>
+                  <br/><br/>
+                  <Checkbox label="Change profile picture" onCheck={this._editProfilePic}/>
+                  <br/>
+                  {
+                    this.state.editingPic ? <div>
+                        <Dropzone style={profileDropZoneStyle} onDrop={this.onDropProfile} multiple={false} accept="image/*">
+                            <div>Try dropping some files here, or click to select files to upload.</div>
+                            <img style={profileDropZoneStyle} src={this.state.profilepreview} />
+                        </Dropzone>
+
+                    </div> : <div className="col-sm-1 col-md-1 col-lg-1">
+                                <GridList
+                                  cellHeight={200}
+                                >
+                                  <GridTile style={profileDropZoneStyle}>
+                                    <img src={'http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg'} />
+                                  </GridTile>
+                                </GridList>
+
+                             </div>
+                   }
+                  <br/><br/>
+                </div>
+            </Dialog>
+
+            <Dialog
+              title="Delete Profile"
+              actions={confirmDeleteActions}
+              modal={false}
+              open={this.state.deleteOpen}
+              onRequestClose={this.handleClose}>
+                Are you sure you want to delete this profile?
+            </Dialog>
 
             <div style={styleGridList}>
               <div style={styles.root}>
@@ -320,6 +387,35 @@ class Account extends Component{
               </div>
             </div>
           </div>
+
+          <Dialog
+            title="Spunch cake"
+            modal={false}
+            open={this.state.recipieOpen}
+            onRequestClose={this.handleClose}
+            autoScrollBodyContent={true}>
+              <Card>
+                <CardMedia>
+                  <img style={{height:400}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
+                </CardMedia>
+                <CardText>
+                  Ingredients (Serves: 8)
+                    225g (8 oz) self-raising flour
+                    225g (8 oz) butter, at room temperature
+                    225g (8 oz) caster sugar
+                    4 eggs
+                    1 teaspoon baking powder
+
+                  Method
+                    Preheat the oven to 180 degrees C / gas mark 4.
+                    Measure all the ingredients into a large bowl.
+                    Mix all of the ingredients using a electric whisk.
+                    Pour the mixture into 2 non-stick 7 inch (18cm) tins.
+                    Place them in the oven till golden brown 15-25 minutes.
+                    Cool on a wire rack before serving.
+                </CardText>
+              </Card>
+          </Dialog>
 
           <div className="col-lg-5">
             <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 780}}>

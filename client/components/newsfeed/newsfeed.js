@@ -136,8 +136,8 @@ class Newsfeeds extends Component{
             </CardMedia>
             <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>Spunch cake</a></b>} subtitle="Cake" />
             <CardActions className="col-lg-3 column" style={{marginTop:15}}>
-              <IconButton onClick={this._changeLikeState} tooltip={'Like'} touch={true} tooltipPosition="bottom-right">
-                  <FavIcon onClick={this._changeLikeState} viewBox="0 0 20 30" color={deepOrange400} />
+              <IconButton>
+                  <FavIconBorder />
               </IconButton>
             </CardActions>
             <CardText className="col-lg-12 column" style={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}}>
