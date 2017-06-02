@@ -68,7 +68,7 @@ export const GetUser=(username)=>{
 
 export const UpdateUser=(user)=>{
   return (dispatch) => {
-    return axios.put('http://localhost:3000/user',{ params:user,headers: { Authorization:localStorage.getItem('jwtToken') } })
+    return axios.put('http://localhost:3000/user',user,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(updateUserData(data)))
               .catch(error => dispatch(ErrorupdateUserData(error)));
         };

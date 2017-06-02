@@ -11,37 +11,33 @@ class FeedContainer extends Component{
   constructor(props) {
     super(props);
       this.state = {
-
+          search:''
       };
+      this.props.recipactions.GetAllRecipes();
+  }
+
+  componentWillMount(){
+    this.props.recipactions.GetAllRecipes();
   }
 
   _renderItem = () => {
-      // return this.state.results.map((result) => {
-      //   return (<Newsfeeds key={result.id}
-      //                      id={result.id}
-      //                      name={result.name}
-      //                      type={result.type}
-      //                      description={result.description}
-      //                      user_id={result.user_id}
-      //                      user_name={result.user_name}
-      //                      attachment={result.attachment}
-      //                      created_at={result.created_at}
-      //                      lkedpost={result.liked}/>);
-      // });
 
-      return (<Newsfeeds  key=1
-                          id=1
-                          name='Pizza'
-                          type='Pizza'
-                          description='aaaaaaaaaaaaaaaaaaaaaaa'
-                          user_id=4
-                          user_name='Madushika'
-                          attachment='http://ptownpizza.com/images/Food/Pizza/Pizza01.jpg'
-                          created_at='2017.06.02'
-                          lkedpost='true'/>);
-    },
+    return  this.props.recipies.map((rec,index)=>{
+        return (<Newsfeeds  key={index}
+                            id={rec._id}
+                            name={rec.fname}
+                            type={rec.type}
+                            description={rec.description}
+                            user_name={rec.creator}
+                            attachment='http://ptownpizza.com/images/Food/Pizza/Pizza01.jpg'
+                            created_at={rec.created}
+                            lkedpost='true'/>);
+      });
+
+    }
 
   render(){
+    console.log(this.props.recipies);
     return(
       <div>
           {this._renderItem()}
@@ -54,19 +50,21 @@ class FeedContainer extends Component{
 FeedContainer.PropTypes = {
   isError: PropTypes.bool.isRequired,
   redireact: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  recipies:  PropTypes.object.isRequired,
+  recipactions: PropTypes.object.isRequired
 }
 
 let mapStateToProps = (state,props) => {
   return {
     isError: state.user,
-    redireact: state.user
+    redireact: state.user,
+    recipies:state.recipe.allrecipe
   }
 }
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    actions:bindActionCreators(RecipeActions,dispatch)
+    recipactions:bindActionCreators(RecipeActions,dispatch)
   };
 }
 

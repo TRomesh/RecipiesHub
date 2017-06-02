@@ -116,10 +116,10 @@ class Newsfeeds extends Component{
           <Card style={Cardstyle}>
             <ListItem
               leftAvatar={<Avatar src='http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg' />}
-              primaryText='Madushika Perera'
+              primaryText={this.props.user_name}
               secondaryText={
                 <p>
-                  created_at
+                {this.props.created_at}
                 </p>
               }
               secondaryTextLines={1}
@@ -134,27 +134,14 @@ class Newsfeeds extends Component{
             <CardMedia>
               <img style={{height:230}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
             </CardMedia>
-            <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>Spunch cake</a></b>} subtitle="Cake" />
+            <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>{this.props.name}</a></b>} subtitle={this.props.type} />
             <CardActions className="col-lg-3 column" style={{marginTop:15}}>
               <IconButton>
                   <FavIconBorder />
               </IconButton>
             </CardActions>
             <CardText className="col-lg-12 column" style={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}}>
-              Ingredients (Serves: 8)
-                225g (8 oz) self-raising flour
-                225g (8 oz) butter, at room temperature
-                225g (8 oz) caster sugar
-                4 eggs
-                1 teaspoon baking powder
-
-              Method
-                Preheat the oven to 180 degrees C / gas mark 4.
-                Measure all the ingredients into a large bowl.
-                Mix all of the ingredients using a electric whisk.
-                Pour the mixture into 2 non-stick 7 inch (18cm) tins.
-                Place them in the oven till golden brown 15-25 minutes.
-                Cool on a wire rack before serving.
+              {this.props.description}
             </CardText>
           </Card>
         </div>
@@ -191,7 +178,7 @@ class Newsfeeds extends Component{
         </Dialog>
 
         <Dialog
-          title="Spunch cake"
+          title={this.props.name}
           modal={false}
           open={this.state.recipieOpen}
           onRequestClose={this.handleClose}
@@ -201,20 +188,7 @@ class Newsfeeds extends Component{
                 <img style={{height:400}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
               </CardMedia>
               <CardText>
-                Ingredients (Serves: 8)
-                  225g (8 oz) self-raising flour
-                  225g (8 oz) butter, at room temperature
-                  225g (8 oz) caster sugar
-                  4 eggs
-                  1 teaspoon baking powder
-
-                Method
-                  Preheat the oven to 180 degrees C / gas mark 4.
-                  Measure all the ingredients into a large bowl.
-                  Mix all of the ingredients using a electric whisk.
-                  Pour the mixture into 2 non-stick 7 inch (18cm) tins.
-                  Place them in the oven till golden brown 15-25 minutes.
-                  Cool on a wire rack before serving.
+                  {this.props.description}
               </CardText>
             </Card>
         </Dialog>

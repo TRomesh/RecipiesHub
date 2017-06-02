@@ -3,7 +3,7 @@ import Login from './login/login';
 import Signup from './signup/signup';
 import Account from './account/account';
 import Navigation from './navigation/navigation';
-import Newsfeeds from './newsfeed/newsfeed';
+import Newsfeeds from './newsfeed/feedcontainer';
 import Test from './test';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import createBrowserHistory from 'history/createBrowserHistory';

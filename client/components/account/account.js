@@ -147,11 +147,17 @@ class Account extends Component{
       profilefiles: {},
     };
     this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
+    this.props.Recipeactions.GetRecipe({uname:localStorage.getItem('usr')});
   }
 
   componentDidMount = () => {
     //UserActions.fetchProfilePicture(localStorage.getItem('apitoken'), localStorage.getItem('username'));
     //ProfileStore.addChangeListener(this._onChange);
+  }
+
+  componentWillMount(){
+    this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
+    this.props.Recipeactions.GetRecipe({uname:localStorage.getItem('usr')});
   }
 
   _onChange = () => {
@@ -223,18 +229,18 @@ class Account extends Component{
     this.props.Recipeactions.AddNewRecipe({
       fname:this.state.recName,
       type:this.state.recType,
-      desc:this.state.description
+      desc:this.state.description,
+      creator:localStorage.getItem('usr')
     });
   }
 
   _editProfile = () => {
-    // let status = this.refs.EditBox.getValue();
-    // let editData = {
-    //   userId: localStorage.getItem('userid'),
-    //   postId: this.props.id,
-    //   status: status,
-    // };
-    // ActivityfeedAction._editStatus(editData);
+    this.props.Useractions.UpdateUser({
+      fname:this.state.fname,
+      lname:this.state.lname,
+      email:this.state.email,
+      uname:localStorage.getItem('usr')
+    });
     this.handleClose();
   }
 
@@ -335,10 +341,9 @@ class Account extends Component{
               contentStyle={{width:550}}
             >
                 <div style={{paddingLeft: 60}}>
-                  <TextField style={{width: 350}} hintText="First name" floatingLabelText="First name" onChange={e=>{this.setState({recfname:e.target.value})}}/>
-                  <TextField style={{width: 350}} hintText="Last name" floatingLabelText="Last name" onChange={e=>{this.setState({reclname:e.target.value})}}/>
-                  <TextField style={{width: 350}} hintText="Username" floatingLabelText="Username" onChange={e=>{this.setState({recuname:e.target.value})}}/>
-                  <TextField style={{width: 350}} hintText="Email" floatingLabelText="Email" onChange={e=>{this.setState({recemail:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.fname} floatingLabelText="First name" onChange={e=>{this.setState({fname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.lname} floatingLabelText="Last name" onChange={e=>{this.setState({lname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.email} floatingLabelText="Email" onChange={e=>{this.setState({mail:e.target.value})}}/>
                   <br/><br/>
                   <Checkbox label="Change profile picture" onCheck={this._editProfilePic}/>
                   <br/>

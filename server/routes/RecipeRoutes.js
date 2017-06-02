@@ -29,7 +29,7 @@ module.exports = function (app) {
   });
 
   app.get('/recipes', function (req, res) {
-      User.find({type:req.query.type},(err,user)=>{
+      Recipes.find({},(err,user)=>{
         if (err) { return next(err); }
         res.json(user);
       });

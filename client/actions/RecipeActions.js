@@ -118,6 +118,15 @@ export const GetRecipe=(recipe)=>{
         };
 }
 
+export const GetAllRecipes=()=>{
+  console.log('calling..........');
+  return (dispatch) => {
+    return axios.get('http://localhost:3000/recipes',{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(searchRecipe(data)))
+              .catch(error => dispatch(ErrorsearchRecipe(error)));
+        };
+}
+
 export const GetAllRecipesTypes=(type)=>{
   return (dispatch) => {
     return axios.get('http://localhost:3000/recipes',type,{ headers: { Authorization:localStorage.getItem('jwtToken') } })

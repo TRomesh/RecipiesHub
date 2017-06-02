@@ -22,12 +22,11 @@ module.exports = function (app) {
        });
   });
 
-  app.put('/user', function (req, res) {
-    User.findOne({fname:req.query.fname},(err,user)=>{
+  app.put('/user',requireAuth, function (req, res) {
+    User.findOne({uname:req.body.uname},(err,user)=>{
       if (err) { return next(err); }
-      user.fname=req.query.fname;
-      user.lname=req.query.lname;
-      user.uname=req.query.uname;
+      user.fname=req.body.fname;
+      user.lname=req.body.lname;
       user.save(function (err,newuser) {
         if (err) { return next(err); }
         res.json(newuser);
