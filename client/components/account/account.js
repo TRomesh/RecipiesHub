@@ -134,8 +134,6 @@ class Account extends Component{
       preview: '',
       mouseover: false,
       picture: '',
-      firstname: 'Madushika',
-      lastname: 'Perera',
       count: 10,
       recName:'',
       recType:'',
@@ -427,8 +425,8 @@ class Account extends Component{
               <h3 style={{paddingTop: 30}}><center><b>Add Recipie</b></center></h3>
               <div style={{paddingLeft: 40}}>
                 <TextField style={{width: 350}} hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
-                <TextField style={{width: 350}}hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
-                <TextField style={{width: 350}}hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
+                <TextField style={{width: 350}} hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
+                <TextField style={{width: 350}} hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
                 <br/><br/><br/>
                 <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
                     <img style={dropZoneStyle} src={this.state.preview} />
