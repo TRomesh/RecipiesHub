@@ -224,6 +224,7 @@ class Account extends Component{
   }
 
   addrecipie=()=>{
+      console.log(this.state.description);
     this.props.Recipeactions.AddNewRecipe({
       fname:this.state.recName,
       type:this.state.recType,
@@ -339,9 +340,9 @@ class Account extends Component{
               contentStyle={{width:550}}
             >
                 <div style={{paddingLeft: 60}}>
-                  <TextField style={{width: 350}} value={this.props.user.fname} floatingLabelText="First name" onChange={e=>{this.setState({fname:e.target.value})}}/>
-                  <TextField style={{width: 350}} value={this.props.user.lname} floatingLabelText="Last name" onChange={e=>{this.setState({lname:e.target.value})}}/>
-                  <TextField style={{width: 350}} value={this.props.user.email} floatingLabelText="Email" onChange={e=>{this.setState({mail:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.fname} floatingLabelText="First name" onChange={e=>{this.setState({fname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.lname} floatingLabelText="Last name" onChange={e=>{this.setState({lname:e.target.value})}}/>
+                  <TextField style={{width: 350}} hintText={this.props.user.email} floatingLabelText="Email" onChange={e=>{this.setState({email:e.target.value})}}/>
                   <br/><br/>
                   <Checkbox label="Change profile picture" onCheck={this._editProfilePic}/>
                   <br/>
