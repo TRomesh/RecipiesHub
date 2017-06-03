@@ -4,7 +4,7 @@ const initialState = {
     allrecipe:[],
     myrecipe:[],
     isError:false,
-    redireact:false
+    rerender:false
 };
 
 export default function Recipe(state = initialState, action) {
@@ -29,7 +29,8 @@ export default function Recipe(state = initialState, action) {
       return Object.assign({},state,{isError:true});
 
     case constants.REMOVE_RECIPE:
-      return Object.assign({},state,{});
+      let recid=JSON.parse(action.data.config.data).id;
+      return Object.assign({},state,{isError:false,rerender:true,allrecipe:state.allrecipe.filter((obj)=>obj._id!==recid)});
 
     case constants.ERROR_REMOVE_RECIPE:
       return Object.assign({},state,{isError:true});

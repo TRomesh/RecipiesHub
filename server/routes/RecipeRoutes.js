@@ -56,12 +56,19 @@ module.exports = function (app) {
     });
   });
 
-  app.put('/recipe', function (req, res) {
-      Recipes.findOne({fname:req.query.fname},(err,rec)=>{
+  app.delete('/recipe', function (req, res) {
+      Recipes.find({_id:req.body.id}).remove().exec((err,rec)=>{
         if (err) { return next(err); }
-        rec.fname=req.query.fname;
-        rec.type=req.query.type;
-        rec.description=req.query.description;
+        res.json(rec);
+      });
+  });
+
+  app.put('/recipe', function (req, res) {
+      Recipes.findOne({fname:req.body.fname},(err,rec)=>{
+        if (err) { return next(err); }
+        rec.fname=req.body.fname;
+        rec.type=req.body.type;
+        rec.description=req.body.description;
 
           rec.save(function (err,newrec) {
             if (err) { return next(err); }

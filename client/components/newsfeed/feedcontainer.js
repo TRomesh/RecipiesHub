@@ -20,6 +20,9 @@ class FeedContainer extends Component{
     this.props.recipactions.GetAllRecipes();
   }
 
+
+
+
   _renderItem = () => {
 
     return  this.props.recipies.map((rec,index)=>{
@@ -37,7 +40,6 @@ class FeedContainer extends Component{
     }
 
   render(){
-    console.log(this.props.recipies);
     return(
       <div>
           {(this.props.recipies)? this._renderItem():<div></div>}
@@ -49,7 +51,7 @@ class FeedContainer extends Component{
 
 FeedContainer.PropTypes = {
   isError: PropTypes.bool.isRequired,
-  redireact: PropTypes.bool.isRequired,
+  rerender: PropTypes.bool.isRequired,
   recipies:  PropTypes.object.isRequired,
   recipactions: PropTypes.object.isRequired
 }
@@ -58,7 +60,8 @@ let mapStateToProps = (state,props) => {
   return {
     isError: state.user,
     redireact: state.user,
-    recipies:state.recipe.allrecipe
+    recipies:state.recipe.allrecipe,
+    rerender:state.recipe.rerender
   }
 }
 

@@ -103,9 +103,10 @@ export const UpdateRecipe=(recipe)=>{
 }
 
 export const RemoveRecipe=(recipe)=>{
+  console.log('delete awa',recipe);
   return (dispatch) => {
-    return axios.delete('http://localhost:3000/recipe',recipe,{ headers: { Authorization: "Bearer " + localStorage.getItem('jwtToken') } })
-              .then(data => dispatch(deleteRecipe(data)))
+    return axios.delete('http://localhost:3000/recipe',{ data: recipe, params: { force: true }, headers: { Authorization: "Bearer " + localStorage.getItem('jwtToken') } })
+              .then(data =>dispatch(deleteRecipe(data)))
               .catch(error => dispatch(ErrordeleteRecipe(error)));
         };
 }
