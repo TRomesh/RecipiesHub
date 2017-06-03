@@ -393,7 +393,7 @@ class Account extends Component{
                   cols={4}
                 >
                   {
-
+                    this.MyRecipies()
                   }
                 </GridList>
               </div>
