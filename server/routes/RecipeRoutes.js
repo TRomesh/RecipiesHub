@@ -79,7 +79,8 @@ module.exports = function (app) {
   });
 
   app.post('/recfile',[requireAuth,upload.single('file')], function(req, res) {
-      let file = __dirname + '/media/' + req.file.filename;
+      let file = __dirname + '/media/' +req.body.filename+'.'+req.file.mimetype.substring(6);
+      console.log(file);
         fs.rename(req.file.path, file, function(err) {
           if (err) {
             console.log(err);

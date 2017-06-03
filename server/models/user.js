@@ -6,6 +6,7 @@ const User = new Schema({
   fname:String,
   lname:String,
   uname:{type:String,unique:true},
+  image:String,
   email:{type:String,unique:true,lowercase:true},
   password:String
 });

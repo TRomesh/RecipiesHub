@@ -177,10 +177,6 @@ class Account extends Component{
           files: file,
           preview: files[0].preview
       });
-      this.props.Recipeactions.uploadRecPic({
-        file,
-        name:this.state.recName
-      });
   }
 
   onDropProfile = (profilefiles) => {
@@ -188,7 +184,7 @@ class Account extends Component{
       console.log(file);
       this.setState({
           profilefiles: file,
-          profilepreview: file.preview
+          profilepreview: profilefiles[0].preview
       });
   }
 
@@ -224,13 +220,20 @@ class Account extends Component{
   }
 
   addrecipie=()=>{
-      console.log(this.state.description);
-    this.props.Recipeactions.AddNewRecipe({
-      fname:this.state.recName,
-      type:this.state.recType,
-      desc:this.state.description,
-      creator:localStorage.getItem('usr')
-    });
+      let token = Math.random();
+
+      this.props.Recipeactions.AddNewRecipe({
+        fname:this.state.recName,
+        type:this.state.recType,
+        desc:this.state.description,
+        creator:localStorage.getItem('usr'),
+        image:token+'.'+this.state.files.type.substring(6)
+      });
+      this.props.Recipeactions.uploadRecPic({
+              file:this.state.files,
+              name:token
+      });
+      console.log(token);
   }
 
   _editProfile = () => {
@@ -238,7 +241,12 @@ class Account extends Component{
       fname:this.state.fname,
       lname:this.state.lname,
       email:this.state.email,
-      uname:localStorage.getItem('usr')
+      uname:localStorage.getItem('usr'),
+      image:localStorage.getItem('usr')+'.'+(this.state.profilefiles.type).substring(6)
+    });
+    this.props.Useractions.uploadProPic({
+      file:this.state.profilefiles,
+      name:localStorage.getItem('usr')
     });
     this.handleClose();
   }
@@ -306,7 +314,7 @@ class Account extends Component{
                 <div>
                     <GridList cellHeight={200} >
                       <GridTile style={proPicStyle}>
-                          <img src={'http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg'} />
+                          <img src={'routes/media/'+ this.props.user.image} />
                       </GridTile>
                     </GridList>
                 </div>
@@ -358,7 +366,7 @@ class Account extends Component{
                                   cellHeight={200}
                                 >
                                   <GridTile style={profileDropZoneStyle}>
-                                    <img src={'http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg'} />
+                                    <img src={'routes/media/'+ this.props.user.image}/>
                                   </GridTile>
                                 </GridList>
 
@@ -385,7 +393,7 @@ class Account extends Component{
                   cols={4}
                 >
                   {
-                    this.MyRecipies()
+
                   }
                 </GridList>
               </div>

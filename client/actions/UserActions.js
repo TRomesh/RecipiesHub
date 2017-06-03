@@ -84,11 +84,11 @@ export const GetUsers=()=>{
 
 export const uploadProPic=({ file, name })=>{
     let data = new FormData();
-    data.append('file', document);
+    data.append('file', file);
     data.append('filename', name);
 
     return (dispatch) => {
-      return  axios.post('http://localhost:3000/file', data,{ headers: { Authorization:localStorage.getItem('jwtToken')} })
+      return  axios.post('http://localhost:3000/usrfile', data,{ headers: { Authorization:localStorage.getItem('jwtToken')} })
                 .then(response => dispatch(uploadSuccess(response)))
                 .catch(error => dispatch(uploadFail(error)))
     }

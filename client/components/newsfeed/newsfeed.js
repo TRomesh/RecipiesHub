@@ -131,7 +131,7 @@ class Newsfeeds extends Component{
                   </IconMenu> }
             />
             <CardMedia>
-              <img style={{height:230}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
+              <img style={{height:230}} src={'routes/media/'+ this.props.attachment} />
             </CardMedia>
             <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>{this.props.name}</a></b>} subtitle={this.props.type} />
             <CardActions className="col-lg-3 column" style={{marginTop:15}}>
@@ -185,7 +185,7 @@ class Newsfeeds extends Component{
           autoScrollBodyContent={true}>
             <Card>
               <CardMedia>
-                <img style={{height:400}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
+                <img style={{height:400}} src={'routes/media/'+ this.props.attachment} />
               </CardMedia>
               <CardText>
                   {this.props.description}
