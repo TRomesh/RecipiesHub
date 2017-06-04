@@ -114,7 +114,7 @@ class Newsfeeds extends Component{
         <div className="col-lg-3">
           <Card style={Cardstyle}>
             <ListItem
-              leftAvatar={<Avatar src='http://aurora-awards.com/wp-content/uploads/2017/05/girls-hd-images-cute-girl-hd-wallpaper-cnmuqi.jpg' />}
+              leftAvatar={<Avatar src={'routes/media/'+ this.props.cimage} />}
               primaryText={this.props.user_name}
               secondaryText={
                 <p>

@@ -32,6 +32,7 @@ class FeedContainer extends Component{
                             type={rec.type}
                             description={rec.description}
                             user_name={rec.cname}
+                            cimage={rec.cimage}
                             attachment={rec.image}
                             created_at={rec.created}
                             lkedpost='true'/>);

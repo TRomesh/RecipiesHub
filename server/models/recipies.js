@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const Recipe = new Schema({
   cname:String,
+  cimage:String,
   creator:String,
   fname:String,
   type:String,

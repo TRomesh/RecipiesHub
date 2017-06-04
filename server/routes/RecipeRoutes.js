@@ -51,6 +51,7 @@ module.exports = function (app) {
           if (err) { return next(err); }
           const recipe = new Recipes({
             cname:user.fname,
+            cimage:user.image,
             creator:req.body.creator,
             fname:req.body.fname,
             type:req.body.type,
