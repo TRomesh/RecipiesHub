@@ -28,6 +28,13 @@ export default function Recipe(state = initialState, action) {
     case constants.ERROR_SEARCH_RECIPE:
       return Object.assign({},state,{isError:true});
 
+    case constants.MY_RECIPES:
+    console.log('reducer mydata',action.data.data);
+      return Object.assign({},state,{myrecipe:action.data.data});
+
+    case constants.ERROR_MY_RECIPES:
+      return Object.assign({},state,{isError:true});
+
     case constants.REMOVE_RECIPE:
       let recid=JSON.parse(action.data.config.data).id;
       return Object.assign({},state,{isError:false,rerender:true,allrecipe:state.allrecipe.filter((obj)=>obj._id!==recid)});

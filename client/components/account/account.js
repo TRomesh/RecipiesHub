@@ -145,7 +145,7 @@ class Account extends Component{
       profilefiles: {},
     };
     this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
-    this.props.Recipeactions.GetRecipe({uname:localStorage.getItem('usr')});
+    this.props.Recipeactions.GetMyRecipe({uname:localStorage.getItem('usr')});
   }
 
   componentDidMount = () => {
@@ -155,7 +155,7 @@ class Account extends Component{
 
   componentWillMount(){
     this.props.Useractions.GetUser({uname:localStorage.getItem('usr')});
-    this.props.Recipeactions.GetRecipe({uname:localStorage.getItem('usr')});
+    this.props.Recipeactions.GetMyRecipe({uname:localStorage.getItem('usr')});
   }
 
   _onChange = () => {
@@ -209,12 +209,12 @@ class Account extends Component{
   }
 
   MyRecipies=()=>{
-     return tilesData.map((user,index)=>{
+     return this.props.myrecipe.map((recip,index)=>{
       return (<GridTile
                   key={index}
-                  title={<a onClick={this.handleOpenRecipie}>{user.title}</a>}
+                  title={<a onClick={this.handleOpenRecipie}>{recip.fname}</a>}
                   actionIcon={<IconButton><FavIconBorder color="white" /></IconButton>}>
-                <img src={user.img} />
+                <img src={'routes/media/'+ recip.image}/>
               </GridTile>)
    });
   }
@@ -393,7 +393,7 @@ class Account extends Component{
                   cols={4}
                 >
                   {
-                    this.MyRecipies()
+                  (this.props.myrecipe)? this.MyRecipies():<div></div>
                   }
                 </GridList>
               </div>
@@ -464,6 +464,7 @@ let mapStateToProps = (state,props) => {
   return {
     isError: state.recipe.isError,
     redireact: state.recipe.redireact,
+    myrecipe: state.recipe.myrecipe,
     user: state.user
   }
 }

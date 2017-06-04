@@ -22,18 +22,27 @@ const upload = multer({ storage });
 
 module.exports = function (app) {
 
-  app.get('/recipe', function (req, res) {
+  app.get('/recipe',requireAuth, function (req, res) {
      Recipes.findOne({fname:req.query.fname},(err,rec)=>{
           if (err) { return next(err); }
           res.json(rec);
         });
   });
 
-  app.get('/recipes', function (req, res) {
+
+  app.get('/recipes',requireAuth, function (req, res) {
       Recipes.find({},(err,user)=>{
         if (err) { return next(err); }
         res.json(user);
       });
+  });
+
+  app.get('/myrecipe',requireAuth, function (req, res) {
+    console.log(req.query.uname);
+     Recipes.find({creator:req.query.uname},(err,rec)=>{
+          if (err) { return next(err); }
+          res.json(rec);
+        });
   });
 
   app.post('/recipe',requireAuth, function (req, res) {

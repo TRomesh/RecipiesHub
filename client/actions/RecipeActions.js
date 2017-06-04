@@ -58,16 +58,16 @@ function ErrorsearchRecipe(data) {
   };
 }
 
-function shareRecipe(data) {
+function getMyRecipe(data) {
   return {
-      type: constants.SHARE_RECIPE,
+      type: constants.MY_RECIPES,
       data
   };
 }
 
-function ErrorshareRecipe(data) {
+function ErrorgetMyRecipe(data) {
   return {
-      type: constants.ERROR_SHARE_RECIPE,
+      type: constants.ERROR_MY_RECIPES,
       data
   };
 }
@@ -116,6 +116,14 @@ export const GetRecipe=(recipe)=>{
     return axios.get('http://localhost:3000/recipe',recipe,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(searchRecipe(data)))
               .catch(error => dispatch(ErrorsearchRecipe(error)));
+        };
+}
+
+export const GetMyRecipe=(user)=>{
+  return (dispatch) => {
+    return axios.get('http://localhost:3000/myrecipe',{ params:user, headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(getMyRecipe(data)))
+              .catch(error => dispatch(ErrorgetMyRecipe(error)));
         };
 }
 
