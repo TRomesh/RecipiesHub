@@ -136,7 +136,7 @@ class Newsfeeds extends Component{
             <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>{this.props.name}</a></b>} subtitle={this.props.type} />
             <CardActions className="col-lg-3 column" style={{marginTop:15}}>
               <IconButton>
-                  <FavIconBorder />
+                  <FavIcon color="red" />
               </IconButton>
             </CardActions>
             <CardText className="col-lg-12 column" style={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}}>
