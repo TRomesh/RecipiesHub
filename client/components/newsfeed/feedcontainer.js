@@ -6,6 +6,10 @@ import {bindActionCreators} from 'redux';
 import * as RecipeActions from '../../actions/RecipeActions';
 import Newsfeeds from './newsfeed';
 
+const Twitterstyle = {
+  marginTop: 20,
+};
+
 class FeedContainer extends Component{
 
   constructor(props) {
@@ -19,9 +23,6 @@ class FeedContainer extends Component{
   componentWillMount(){
     this.props.recipactions.GetAllRecipes();
   }
-
-
-
 
   _renderItem = () => {
 
@@ -42,11 +43,11 @@ class FeedContainer extends Component{
 
   render(){
     return(
-      <div className="row">
+      <div className="column">
         <div className="col-md-9">
             {(this.props.recipies)? this._renderItem():<div></div>}
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3" style={Twitterstyle}>
           <a className="twitter-timeline" data-dnt="true" href="https://twitter.com/search?q=%23recipe%20" data-widget-id="871770866014715906">Tweets about #recipe </a>
         </div>
       </div>
