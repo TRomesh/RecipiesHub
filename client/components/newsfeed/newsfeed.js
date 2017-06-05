@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import Paper from 'material-ui/Paper';
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux';
 import * as RecipeActions from '../../actions/RecipeActions';
@@ -111,7 +112,7 @@ class Newsfeeds extends Component{
 
     return(
       <div className="column">
-        <div className="col-lg-3">
+        <div className="col-lg-4">
           <Card style={Cardstyle}>
             <ListItem
               leftAvatar={<Avatar src={'routes/media/'+ this.props.cimage} />}

@@ -42,8 +42,13 @@ class FeedContainer extends Component{
 
   render(){
     return(
-      <div>
-          {(this.props.recipies)? this._renderItem():<div></div>}
+      <div className="row">
+        <div className="col-md-9">
+            {(this.props.recipies)? this._renderItem():<div></div>}
+        </div>
+        <div className="col-md-3">
+          <a className="twitter-timeline" data-dnt="true" href="https://twitter.com/search?q=%23recipe%20" data-widget-id="871770866014715906">Tweets about #recipe </a>
+        </div>
       </div>
     );
   }
