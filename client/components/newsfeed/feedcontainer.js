@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux';
 import * as RecipeActions from '../../actions/RecipeActions';
+import AutoComplete from 'material-ui/AutoComplete';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 import Newsfeeds from './newsfeed';
 
 const Twitterstyle = {
@@ -15,13 +18,20 @@ class FeedContainer extends Component{
   constructor(props) {
     super(props);
       this.state = {
-          search:''
+          search:'',
+          dataSource: []
       };
       this.props.recipactions.GetAllRecipes();
   }
 
   componentWillMount(){
     this.props.recipactions.GetAllRecipes();
+  }
+
+  searchRecipe=(e)=>{
+      if(e.keyCode == 13){
+        this.props.recipactions.GetRecipe({fname:e.target.value});
+     }
   }
 
   _renderItem = () => {
@@ -44,6 +54,18 @@ class FeedContainer extends Component{
   render(){
     return(
       <div className="column">
+        <div className="col-md-12">
+          <Paper zDepth={1} style={{ margin: 20}}>
+            <div style={{padding:10}}>
+              <TextField
+                hintText="Search Recipes"
+                fullWidth={true}
+                onKeyDown={this.searchRecipe}
+                onChange={e=>{this.setState({searchtxt:e.target.value})}}
+              />
+            </div>
+        </Paper>
+        </div>
         <div className="col-md-9">
             {(this.props.recipies)? this._renderItem():<div></div>}
         </div>

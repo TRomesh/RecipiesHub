@@ -277,6 +277,14 @@ class Account extends Component{
      this.setState({deleteOpen: false});
    }
 
+   searchMyRecipe=(e)=>{
+     if(e.keyCode == 13){
+       console.log(e.target.value);
+       this.props.Recipeactions.GetfromMyRecipe({fname:e.target.value,creator:localStorage.getItem('usr')})
+    }
+   }
+
+
   render(){
 
     const updateActions = [
@@ -386,6 +394,16 @@ class Account extends Component{
             </Dialog>
 
             <div style={styleGridList}>
+              <Paper zDepth={1}>
+                <div style={{padding:10,margin:10}}>
+                  <TextField
+                    hintText="Search My Recipes"
+                    fullWidth={true}
+                    onKeyDown={this.searchMyRecipe}
+                    onChange={e=>{this.setState({mysearchtxt:e.target.value})}}
+                  />
+                </div>
+            </Paper>
               <div style={styles.root}>
                 <GridList
                   cellHeight={180}

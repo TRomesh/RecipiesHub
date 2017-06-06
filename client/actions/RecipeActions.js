@@ -113,7 +113,7 @@ export const RemoveRecipe=(recipe)=>{
 
 export const GetRecipe=(recipe)=>{
   return (dispatch) => {
-    return axios.get('http://localhost:3000/recipe',recipe,{ headers: { Authorization:localStorage.getItem('jwtToken') } })
+    return axios.get('http://localhost:3000/recipe',{ params:recipe, headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(searchRecipe(data)))
               .catch(error => dispatch(ErrorsearchRecipe(error)));
         };
@@ -122,6 +122,14 @@ export const GetRecipe=(recipe)=>{
 export const GetMyRecipe=(user)=>{
   return (dispatch) => {
     return axios.get('http://localhost:3000/myrecipe',{ params:user, headers: { Authorization:localStorage.getItem('jwtToken') } })
+              .then(data => dispatch(getMyRecipe(data)))
+              .catch(error => dispatch(ErrorgetMyRecipe(error)));
+        };
+}
+
+export const GetfromMyRecipe=(name)=>{
+  return (dispatch) => {
+    return axios.get('http://localhost:3000/myrecipes',{ params:name, headers: { Authorization:localStorage.getItem('jwtToken') } })
               .then(data => dispatch(getMyRecipe(data)))
               .catch(error => dispatch(ErrorgetMyRecipe(error)));
         };

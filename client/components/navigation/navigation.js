@@ -42,12 +42,6 @@ class Navigation extends Component{
          iconElementLeft={
            <div className="column">
              <span style={styles.title}>RecipesHub</span>
-             <AutoComplete
-                hintText="Search"
-                dataSource={this.state.dataSource}
-                filter={AutoComplete.caseInsensitiveFilter}
-                textFieldStyle={{width: 500}}
-             />
            </div>
          }
          iconStyleRight={{marginTop:0}}
