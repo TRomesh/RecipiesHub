@@ -17,12 +17,12 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dropzone from 'react-dropzone';
-import AddRecipie from './addrecipie';
 import {blueGrey50,lightBlue500,deepOrange400} from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
+import MyRecipe from './myrecipe';
 
 const stylePaper = {
   height: 160,
@@ -89,40 +89,6 @@ const checkboxstyles = {
   },
 };
 
-const tilesData = [
-  {
-    img: 'http://static5.businessinsider.com/image/56450d312491f9b9008b4bd4/50-meals-everyone-should-eat-in-their-lifetime.jpg',
-    title: 'Special fried rice with prawns',
-  },
-  {
-    img: 'http://www.leanphysiquemeals.co.uk/wp-content/uploads/2015/02/bigstock-Pasta-Meal-1095251.jpg',
-    title: 'Vegi pasta',
-  },
-  {
-    img: 'http://www.travelistanbulhotels.com/media/dXSbL-inside-crucial-aspects-for-appetizers.png',
-    title: 'Vegitable salad with crispy fried fish',
-  },
-  {
-    img: 'http://cdn2.tmbi.com/TOH/Images/Photos/37/1200x1200/Strawberries---Cream-Torte_exps167223_TH2847295D02_21_4bC_RMS.jpg',
-    title: 'Strawberry cake with fresh cream',
-  },
-  {
-    img: 'http://www.sugaretal.com/wp-content/uploads/2013/06/IMG_0767-1.jpg?x87046',
-    title: 'Chocolate mousse',
-  },
-  {
-    img: 'http://cdn2.tmbi.com/TOH/Images/Photos/37/1200x1200/exps143154_THCA153054A09_11_2b.jpg',
-    title: 'Special chocolate dessert with strawberry',
-  },
-  {
-    img: 'https://i.ytimg.com/vi/-H7PPTc9J90/maxresdefault.jpg',
-    title: 'Italian spaghetti',
-  },
-  {
-    img: 'http://files.hungryforever.com/wp-content/uploads/2015/09/23213411/pizza.jpg',
-    title: 'Pizza with chicken and baby mushroom',
-  },
-];
 
 class Account extends Component{
 
@@ -210,12 +176,14 @@ class Account extends Component{
 
   MyRecipies=()=>{
      return this.props.myrecipe.map((recip,index)=>{
-      return (<GridTile
-                  key={index}
-                  title={<a onClick={this.handleOpenRecipie}>{recip.fname}</a>}
-                  actionIcon={<IconButton><FavIconBorder color="white" /></IconButton>}>
-                <img src={'routes/media/'+ recip.image}/>
-              </GridTile>)
+      return (
+        <MyRecipe
+          key={index}
+          fname={recip.fname}
+          image={recip.image}
+          description={recip.description}
+        />
+    )
    });
   }
 
@@ -406,7 +374,7 @@ class Account extends Component{
             </Paper>
               <div style={styles.root}>
                 <GridList
-                  cellHeight={180}
+                  cellHeight={250}
                   style={styles.gridList}
                   cols={4}
                 >
@@ -417,35 +385,6 @@ class Account extends Component{
               </div>
             </div>
           </div>
-
-          <Dialog
-            title="Spunch cake"
-            modal={false}
-            open={this.state.recipieOpen}
-            onRequestClose={this.handleClose}
-            autoScrollBodyContent={true}>
-              <Card>
-                <CardMedia>
-                  <img style={{height:400}} src="https://i.ytimg.com/vi/zdpJy70Ou48/maxresdefault.jpg" />
-                </CardMedia>
-                <CardText>
-                  Ingredients (Serves: 8)
-                    225g (8 oz) self-raising flour
-                    225g (8 oz) butter, at room temperature
-                    225g (8 oz) caster sugar
-                    4 eggs
-                    1 teaspoon baking powder
-
-                  Method
-                    Preheat the oven to 180 degrees C / gas mark 4.
-                    Measure all the ingredients into a large bowl.
-                    Mix all of the ingredients using a electric whisk.
-                    Pour the mixture into 2 non-stick 7 inch (18cm) tins.
-                    Place them in the oven till golden brown 15-25 minutes.
-                    Cool on a wire rack before serving.
-                </CardText>
-              </Card>
-          </Dialog>
 
           <div className="col-lg-5">
             <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 780}}>
