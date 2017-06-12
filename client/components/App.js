@@ -5,6 +5,7 @@ import Account from './account/account';
 import Navigation from './navigation/navigation';
 import Newsfeeds from './newsfeed/feedcontainer';
 import Test from './test';
+import NotMatch from './nomatch/Notmatch';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import createBrowserHistory from 'history/createBrowserHistory';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -26,13 +27,13 @@ class App extends Component{
        <Router history={history}>
          <Switch>
            <Route exact path="/login" component={Login}/>
-           <Route exact path="/signup" component={Signup}/>
-           <Route exact path="/test" component={Test}/>
+           <Route  path="/signup" component={Signup}/>
+           <Route  path="/test" component={Test}/>
             <Navigation>
-             <Route exact path="/account" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Account />))}/>
+             <Route  path="/account" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Account />))}/>
              <Route exact path="/home" render={() => (hasToken() ? (<Redirect to="/login"/>) : (<Newsfeeds />))}/>
            </Navigation>
-           <Route component={<h1>404 Page Not Found!</h1>}/>
+           <Route component={NotMatch}/>
          </Switch>
        </Router>
      </MuiThemeProvider>
