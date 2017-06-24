@@ -9,7 +9,7 @@ import {grey50} from 'material-ui/styles/colors';
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
 const styles = {
   title: {
@@ -31,6 +31,11 @@ class Navigation extends Component{
        this.state = {
          dataSource: [],
        }
+  }
+
+  logout=()=>{
+    this.props.history.push('/login');
+    setTimeout(() => {localStorage.clear();}, 9000);
   }
 
 
@@ -57,7 +62,7 @@ class Navigation extends Component{
                targetOrigin={{horizontal: 'right', vertical: 'top'}}
                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
              >
-               <Link to="/login"><MenuItem primaryText="Logout" onTouchTap={e=>{localStorage.clear();}}></MenuItem></Link>
+               <MenuItem primaryText="Logout" onTouchTap={this.logout}></MenuItem>
              </IconMenu>
           </div>
           }
@@ -68,4 +73,4 @@ class Navigation extends Component{
    }
 }
 
-export default Navigation;
+export default withRouter(Navigation);

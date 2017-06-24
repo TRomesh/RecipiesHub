@@ -8,6 +8,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Newsfeeds from './newsfeed';
+import TwitterFeed from './TwitterFeed';
 
 const Twitterstyle = {
   marginTop: 20,
@@ -70,7 +71,7 @@ class FeedContainer extends Component{
             {(this.props.recipies)? this._renderItem():<div></div>}
         </div>
         <div className="col-md-3" style={Twitterstyle}>
-          <a className="twitter-timeline" data-dnt="true" href="https://twitter.com/search?q=%23recipe%20" data-widget-id="871770866014715906">Tweets about #recipe </a>
+          <TwitterFeed/>
         </div>
       </div>
     );
