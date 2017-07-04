@@ -17,6 +17,7 @@ function ErroraddRecipe(data) {
 }
 
 function updateRecipe(data) {
+  console.log('recipeAction',data);
   return {
       type: constants.UPDATE_RECIPE,
       data

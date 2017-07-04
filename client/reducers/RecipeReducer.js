@@ -16,7 +16,10 @@ export default function Recipe(state = initialState, action) {
       return Object.assign({},state,{isError:true});
 
     case constants.UPDATE_RECIPE:
-      return Object.assign({},state,{allrecipe:action.data.data.concat(state.allrecipe)});
+    let recpid=JSON.parse(action.data.config.data).id;
+      return Object.assign({},state,{
+        allrecipe:state.allrecipe.filter((obj)=>obj._id!==recpid).concat(action.data.data)
+      });
 
     case constants.ERROR_UPDATE_RECIPE:
       return Object.assign({},state,{isError:true});

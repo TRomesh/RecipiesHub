@@ -2,6 +2,7 @@ const Authentication = require('../auth/auth');
 const passportService = require('../auth/passport');
 const passport = require('passport');
 const multer = require('multer');
+const ObjectId = require('mongodb').ObjectID;
 const fs = require('fs');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -82,19 +83,44 @@ module.exports = function (app) {
       });
   });
 
-  app.put('/recipe', function (req, res) {
-      Recipes.findOne({fname:req.body.fname},(err,rec)=>{
-        if (err) { return next(err); }
-        rec.fname=req.body.fname;
-        rec.type=req.body.type;
-        rec.description=req.body.description;
+  app.put('/recipe', function (req, res,next) {
+      // Recipes.findOne({fname:req.body.fname},(err,rec)=>{
+      //   if (err) { return next(err); }
+      //   rec.fname=req.body.fname;
+      //   rec.type=req.body.type;
+      //   rec.description=req.body.description;
+      //
+      //     rec.save(function (err,newrec) {
+      //       if (err) { return next(err); }
+      //       res.json(newrec);
+      //     });
+      //
+      // });
+      // let recipe;
+      //
+      // for(var key in req.body) {
+      //   if(req.body.hasOwnProperty(key) && req.body.key.length!=0){
+      //       recipe[key]=req.body.key;
+      //   }
+      // }
+      //
+      // Recipes.findByIdAndUpdate(req.body._id,recipe)
+      //   .then((rec)=>res.json(rec))
+      //   .then((err)=>next(err));
 
-          rec.save(function (err,newrec) {
-            if (err) { return next(err); }
-            res.json(newrec);
-          });
+        let recipe={};
+        let data=[];
 
-      });
+        for(var key in req.body) {
+          if(req.body.hasOwnProperty(key) && req.body[key] !== undefined && key !== 'uname' && key !== 'id'){
+              recipe[key]=req.body[key];
+          }
+        }
+
+          Recipes.findOneAndUpdate({_id:req.body.id},recipe,{ "new": true })
+            .then((rec)=>{console.log('menna',rec);res.send(rec);})
+            .then((err)=>next(err));
+
   });
 
   app.post('/recfile',[requireAuth,upload.single('file')], function(req, res) {

@@ -6,7 +6,7 @@ const User = new Schema({
   fname:String,
   lname:String,
   uname:{type:String,unique:true},
-  image:String,
+  image:{ type: String, default: 'defaultuser.png' },
   email:{type:String,unique:true,lowercase:true},
   password:String
 });

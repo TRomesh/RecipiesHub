@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FavIcon from 'material-ui/svg-icons/action/favorite';
 import FavIconBorder from 'material-ui/svg-icons/action/favorite-border';
-import {deepOrange400} from 'material-ui/styles/colors';
+import {deepOrange400,red500} from 'material-ui/styles/colors';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
@@ -44,6 +44,7 @@ class Newsfeeds extends Component{
       editOpen: false,
       deleteOpen: false,
       recipieOpen: false,
+      liked: '',
     };
   }
 
@@ -81,6 +82,16 @@ class Newsfeeds extends Component{
      this.setState({deleteOpen: false});
      this.setState({recipieOpen: false});
    }
+
+  changeLikeState = () => {
+
+     if (this.state.liked) {
+       this.setState({liked: !this.state.liked});
+     }
+     else {
+       this.setState({liked: !this.state.liked});
+     }
+  }
 
   render(){
 
@@ -136,9 +147,10 @@ class Newsfeeds extends Component{
             </CardMedia>
             <CardTitle className="col-lg-9 column" titleStyle={{fontSize: 18}} title={<b><a onClick={this.handleOpenRecipie}>{this.props.name}</a></b>} subtitle={this.props.type} />
             <CardActions className="col-lg-3 column" style={{marginTop:15}}>
-              <IconButton>
-                  <FavIcon color="red" />
-              </IconButton>
+            <IconButton onClick={this.changeLikeState}  touch={true}>
+                {this.state.liked ? <FavIcon onClick={this.changeLikeState} color={red500} /> :
+                  <FavIconBorder color={red500} />}
+            </IconButton>
             </CardActions>
             <CardText className="col-lg-12 column" style={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis'}}>
               {this.props.description}
@@ -156,7 +168,6 @@ class Newsfeeds extends Component{
           contentStyle={{width:500}}
         >
             <div>
-              {this.props.id}
               <TextField hintText={this.props.name} floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
               <TextField hintText={this.props.type} floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
               <TextField hintText={this.props.description} floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>

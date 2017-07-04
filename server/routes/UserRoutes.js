@@ -35,18 +35,30 @@ module.exports = function (app) {
   });
 
   app.put('/user',requireAuth, function (req, res) {
-    User.findOne({uname:req.body.uname},(err,user)=>{
-      if (err) { return next(err); }
-      user.fname=req.body.fname;
-      user.lname=req.body.lname;
-      user.image=req.body.image;
-      user.save(function (err,newuser) {
-        if (err) { return next(err); }
-        res.json(newuser);
-      });
+    // User.findOne({uname:req.body.uname},(err,user)=>{
+    //   if (err) { return next(err); }
+    //   user.fname=req.body.fname;
+    //   user.lname=req.body.lname;
+    //   user.image=req.body.image;
+    //   user.save(function (err,newuser) {
+    //     if (err) { return next(err); }
+    //     res.json(newuser);
+    //   });
+    //
+    // });
+    let user={};
+    let data=[];
 
-    })
+    for(var key in req.body) {
+      if(req.body.hasOwnProperty(key) && req.body[key] !== undefined && key !== 'uname' && key !== '_id'){
+          user[key]=req.body[key];
+      }
+    }
+    User.findOneAndUpdate({uname:req.body.uname},user,{ "new": true })
+      .then((usr)=>res.json(usr))
+      .then((err)=>next(err));
   });
+
 
   app.post('/usrfile',[requireAuth,upload.single('file')], function(req, res) {
       let file = __dirname + '/media/' +req.body.filename+'.'+req.file.mimetype.substring(6);
