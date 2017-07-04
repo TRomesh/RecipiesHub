@@ -114,9 +114,16 @@ class Account extends Component{
     this.props.Recipeactions.GetMyRecipe({uname:localStorage.getItem('usr')});
   }
 
-  componentDidMount = () => {
-    //UserActions.fetchProfilePicture(localStorage.getItem('apitoken'), localStorage.getItem('username'));
-    //ProfileStore.addChangeListener(this._onChange);
+  clearSearchText=()=>{
+    document.getElementById('SearchBox').value = '';
+    this.setState({mysearchtxt:''});
+  }
+
+  clearRecipeText=()=>{
+    document.getElementById('NameBox').value = '';
+    document.getElementById('TypeBox').value = '';
+    document.getElementById('DescriptionBox').value = '';
+    this.setState({recName:'',recType:'',description:''});
   }
 
   componentWillMount(){
@@ -201,7 +208,7 @@ class Account extends Component{
               file:this.state.files,
               name:token
       });
-      console.log(token);
+      this.clearRecipeText();
   }
 
   _editProfile = () => {
@@ -249,9 +256,9 @@ class Account extends Component{
      if(e.keyCode == 13){
        console.log(e.target.value);
        this.props.Recipeactions.GetfromMyRecipe({fname:e.target.value,creator:localStorage.getItem('usr')})
+       this.clearSearchText();
     }
    }
-
 
   render(){
 
@@ -365,6 +372,7 @@ class Account extends Component{
               <Paper zDepth={1}>
                 <div style={{padding:10,margin:10}}>
                   <TextField
+                    id="SearchBox"
                     hintText="Search My Recipes"
                     fullWidth={true}
                     onKeyDown={this.searchMyRecipe}
@@ -390,9 +398,9 @@ class Account extends Component{
             <Paper zDepth={1} style={{marginTop:50,marginLeft:40,marginRight:40, height: 780}}>
               <h3 style={{paddingTop: 30}}><center><b>Add Recipie</b></center></h3>
               <div style={{paddingLeft: 40}}>
-                <TextField style={{width: 350}} hintText="Name" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
-                <TextField style={{width: 350}} hintText="Type" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
-                <TextField style={{width: 350}} hintText="Description" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
+                <TextField style={{width: 350}} hintText="Name" id="NameBox" floatingLabelText="Name" onChange={e=>{this.setState({recName:e.target.value})}}/>
+                <TextField style={{width: 350}} hintText="Type" id="TypeBox" floatingLabelText="Type" onChange={e=>{this.setState({recType:e.target.value})}}/>
+                <TextField style={{width: 350}} hintText="Description" id="DescriptionBox" floatingLabelText="Description" multiLine={true} rows={5} rowsMax={100} onChange={e=>{this.setState({description:e.target.value})}}/>
                 <br/><br/><br/>
                 <Dropzone style={dropZoneStyle} onDrop={this.onDrop} multiple={false} accept="image/*">
                     <img style={dropZoneStyle} src={this.state.preview} />

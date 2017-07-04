@@ -85,6 +85,7 @@ class Signup extends Component{
           <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={e=>{this.setState({password:e.target.value})}}/>
           <br/><br/>
           <RaisedButton label="Sign Up" primary={true} buttonStyle={{backgroundColor:deepOrange400}} style={style2} onTouchTap={this.singup}/>
+          {this.props.redireact.redireact ? <Link to={'/login'}>Component</Link> : <div/>}
         </Paper>
   </div>
     );

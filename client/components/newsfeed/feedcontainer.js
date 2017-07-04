@@ -32,7 +32,13 @@ class FeedContainer extends Component{
   searchRecipe=(e)=>{
       if(e.keyCode == 13){
         this.props.recipactions.GetRecipe({fname:e.target.value});
+        this.clearSearchText();
      }
+  }
+
+  clearSearchText=()=>{
+    document.getElementById('SearchBox1').value = '';
+    this.setState({search:''});
   }
 
   _renderItem = () => {
@@ -60,6 +66,7 @@ class FeedContainer extends Component{
             <div style={{padding:10}}>
               <TextField
                 hintText="Search Recipes"
+                id="SearchBox1"
                 fullWidth={true}
                 onKeyDown={this.searchRecipe}
                 onChange={e=>{this.setState({searchtxt:e.target.value})}}

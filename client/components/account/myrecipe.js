@@ -14,7 +14,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FavIcon from 'material-ui/svg-icons/action/favorite';
 import FavIconBorder from 'material-ui/svg-icons/action/favorite-border';
-import {deepOrange400} from 'material-ui/styles/colors';
+import {deepOrange400,red500} from 'material-ui/styles/colors';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
@@ -27,7 +27,8 @@ class MyRecipe extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      recipieOpen: false
+      recipieOpen: false,
+      liked: '',
     }
   }
 
@@ -39,12 +40,25 @@ class MyRecipe extends Component{
      this.setState({recipieOpen: false});
    }
 
+  changeLikeState = () => {
+
+      if (this.state.liked) {
+        this.setState({liked: !this.state.liked});
+      }
+      else {
+        this.setState({liked: !this.state.liked});
+      }
+  }
+
     render(){
       return(
         <div>
           <GridTile
               title={<a onClick={this.handleOpenRecipie}>{this.props.fname}</a>}
-              actionIcon={<IconButton><FavIconBorder color="white" /></IconButton>}>
+              actionIcon={<IconButton onClick={this.changeLikeState}  touch={true}>
+                            {this.state.liked ? <FavIcon onClick={this.changeLikeState} color={red500} /> :
+                            <FavIconBorder color={red500} />}
+                          </IconButton>}>
               <img style={{height:250}} src={'routes/media/'+ this.props.image}/>
           </GridTile>
           <Dialog

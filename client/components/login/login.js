@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as AuthActions from '../../actions/AuthActions';
 import {deepOrange50,pink500,deepOrange400,grey50} from 'material-ui/styles/colors';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
 const style = {
   height: 350,
@@ -68,6 +68,11 @@ class Login extends Component{
       <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={p=>{this.setState({password:p.target.value})}}/>
       <br/><br/>
       <RaisedButton label="Sign In" primary={true} buttonStyle={{backgroundColor:deepOrange400}} style={style2} onTouchTap={this.singin}/>
+      <br/>
+      <div>
+        <span style={{padding:'5px'}}>Don not have an account?</span>
+         <Link to={'/signup'}>Signup</Link>
+      </div>
     </Paper>
   </div>
     );
