@@ -1,2 +1,4 @@
 node_modules/
-media/
+server/routes/media/*
+!server/routes/media/defaultuser.png
+.idea/
