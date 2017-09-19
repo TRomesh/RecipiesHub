@@ -4,7 +4,8 @@
   "description": "Web application for recipe community",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "test":"node server/index.js"
   },
   "repository": {
     "type": "git",
